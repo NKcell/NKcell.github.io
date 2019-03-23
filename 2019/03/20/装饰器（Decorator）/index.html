@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">python鸭子类型与协议理解 | Kid</title>
+  <title itemprop="name">装饰器（Decorator） | Kid</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -348,11 +348,11 @@
   
     <div class="pattern-center single-center">
       <!-- 有配图默认渲染第一张 -->
-      <div class="pattern-attachment-img lazyload" style="background-image: url(/images/blogpic/python高级5.png);" src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/blogpic/python高级5.png">
+      <div class="pattern-attachment-img lazyload" style="background-image: url(/images/blogpic/python高级6.jpg);" src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/blogpic/python高级6.jpg">
       </div>
       <header class="pattern-header single-header">
         <h1 class="entry-title">
-        python鸭子类型与协议理解</h1>
+        装饰器（Decorator）</h1>
         <p class="entry-census">
           <span>
             <a href="/">
@@ -364,7 +364,7 @@
           </span>
           <span class="bull">
           ·</span>
-          2019-3-6<span class="bull">
+          2019-3-20<span class="bull">
           ·</span>
         <span id="busuanzi_value_page_pv"></span>次阅读</p>
       </header>
@@ -377,31 +377,301 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <h2 id="鸭子类型"><a href="#鸭子类型" class="headerlink" title="鸭子类型"></a>鸭子类型</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
-<li>在维基百科中的准确定义是‘是动态类型的一种风格。在这种风格中，一个对象有效的语义，不是由继承自特定的类或实现特定的接口，而是由”当前方法和属性的集合”决定’</li>
-<li>个人理解：实现了指定的方法就可以拿来当特定的类型用 ， 比如<strong>getitem</strong>就可以当做collection用 ， 来切片索引与静态类型来对比（比如java）：多态，你可以用父类的引用而传入子类的对象，而鸭子类型不用继承，更为灵活。（<del>：多态最核心的思想就是，父类的引用可以指向子类的对象，或者接口类型的引用可以指向实现该接口的类的实例。多态之所以是这样的是因为基于一个事实：子类就是父类！</del>）鸭子类型是一种不严格的类型，弱类型有相同方法的类型，可以归为一类鸭子</li>
-</ul>
-<a id="more"></a>
-<pre><code class="python">class Duck():
-    def walk(self):
-        print(&quot;i&#39;m walking!&quot;)
-class People():
-    def walk(self):
-        print(&quot;i&#39;m walking!&quot;)
-def test(animal): #  核心就是这里并不检查animal类型，所以只要实现了walk方法的都行
-    animal.walk()
-duck = Duck()
-people = People()
-test(duck)
-test(people)
+          <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>Java有一个装饰器设计模式主要就是动态地给一个对象添加一些额外的职责<br>python也是这样，但python中函数可以作为参数传递，也可以返回函数（闭包）</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><h3 id="一个最简单的装饰器"><a href="#一个最简单的装饰器" class="headerlink" title="一个最简单的装饰器"></a>一个最简单的装饰器</h3><pre><code class="python"># 一个简单事例
+def test01(func):
+    def wraps():
+        print(&#39;my first decorator!&#39;)
+        return func()
+    return wraps
+@test01
+def mytest01():
+    print(&#39;haha...&#39;)
+mytest01()
 </code></pre>
-<pre><code>i&#39;m walking!
-i&#39;m walking!
-</code></pre><p>对于一个鸭子类型来说，我们并不关心这个对象的类型本身或是这个类继承，而是这个类是如何被使用的。</p>
-<h2 id="python协议"><a href="#python协议" class="headerlink" title="python协议"></a>python协议</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>protocol可以看作是通知型的接口，它规定了调用方使用该功能要调用对象的哪些方法<br>比如要做切片等操作，实现<strong>getitem</strong>()就行，根据协议，进行切片的时候就会去使用该方法</p>
+<pre><code>my first decorator!
+haha...
+</code></pre><p>看上面的代码，test01是一个最简单的装饰器，来简单解读一下这个代码。<br>程序从mytest01()开始运行，因为@test01的存在，运行mytest01()的时候，解释器会将这里解释为，<br>mytest01 = test01(mytest01)<br>mytest01()<br>然后程序运行，return wraps 返回wraps闭包，这时的mytest01就是返回的wraps闭包<br>mytest01()运行，wraps()闭包运行，首先完成打印my first decorator!，实现额外添加的功能<br>然后return func()这里返回的是运行结果，所以func会运行，完成mytest01本有的功能，最后程序结束。</p>
+<h3 id="装饰函数带参数"><a href="#装饰函数带参数" class="headerlink" title="装饰函数带参数"></a>装饰函数带参数</h3><p>ok,上面的代码中可以看到装饰的函数是不带参数，有参数怎么办呢？特别是装饰器要考虑到通用性，装饰的函数参数个数不确定，这时候，*args,**kwargs就很有用了</p>
+<pre><code class="python">def test02(func):
+    def wraps(*args, **kwargs):  # 注意这里就要带上*args和**kwargs了
+        print(&#39;haha...&#39;)
+        return func(*args, **kwargs)
+    return wraps
+@test02
+def mytest02(a, b):
+    print(a+b)
+@test02
+def mytest03(a, b, c):
+    print(a*b*c)
+mytest02(1,2)
+mytest03(2,3,4)
+</code></pre>
+<pre><code>haha...
+3
+haha...
+24
+</code></pre><p>来解释下为什么要在wraps参数中写上*args和**kwargs<br>按照上面的第一个例子的解释，这里以mytest02为例<br>mytest02 = test02(mytest02)<br>mytest02 = wraps<br>mytest02(1,2)就相当于执行wraps(1,2)，所以wraps参数中不写上*args和**kwargs就会报<br>TypeError: wraps() takes 0 positional arguments but 2 were given<br>没错，这里报wraps()就很好理解了<br><del>ps:这里注意被修饰函数的参数是正常写，不用写成*args和**kwargs</del></p>
+<h3 id="装饰器带参数"><a href="#装饰器带参数" class="headerlink" title="装饰器带参数"></a>装饰器带参数</h3><p>上面已经解决了装饰函数有参数如何解决的问题，现在来解决装饰器需要参数的问题<br>这个问题的需求也很贴合实际，运用同一装饰器，不同的装饰函数可能需要适当的调整</p>
+<pre><code class="python">def test03(name):
+    def dec(func):
+        def wraps(*args, **kwargs):
+            print(&#39;This is &#39; + name)
+            return func(*args, **kwargs)
+        return wraps
+    return dec
+@test03(&#39;01&#39;)
+def mytest04():
+    print(&#39;haha...&#39;)
+@test03(&#39;02&#39;)
+def mytest05():
+    print(&#39;haha...&#39;)
+mytest04()
+mytest05()
+</code></pre>
+<pre><code>This is 01
+haha...
+This is 02
+haha...
+</code></pre><p>上面的代码可以看到虽然用的同一个装饰器，但因为装饰器接受了参数所以打印出的值可以定制化了。<br>还是来进行分析，加上装饰器后mytest04()进行了什么样的转化<br>mytest04 = test(name)(mytest04)<br>&emsp;&emsp;&emsp;&emsp;&ensp;\= dec闭包<br>&emsp;&emsp;&emsp;&emsp;&ensp;\= wraps闭包<br>这里wraps的闭包中就有name和mytest04这两个参数了，再mytest04()运行得到的闭包，就实现了装饰器传参<br><br><br><br><br>再来回想这三层函数，每层函数的作用:</p>
+<ol>
+<li>test03(name) 作为最外层的函数，主要起到了传递装饰器参数的作用，返回闭包的作用</li>
+<li>dec(func) 这里就与前面无参的最外层函数就一样了，起到传递被装饰函数，返回闭包的作用</li>
+<li>wraps(*args, **kwargs)这里是最核心的函数，实现增加的功能和运行被装饰的函数</li>
+</ol>
+<h3 id="基于类实现的装饰器"><a href="#基于类实现的装饰器" class="headerlink" title="基于类实现的装饰器"></a>基于类实现的装饰器</h3><blockquote>
+<p>装饰器函数其实是这样一个接口约束，它必须接受一个callable对象作为参数，然后返回一个callable对象。在Python中一般callable对象都是函数，但也有例外。只要某个对象重载了<strong>call</strong>()方法，那么这个对象就是callable的。</p>
+</blockquote>
+<p>下面会对callable对象进行一个解释</p>
+<h4 id="无参数的类装饰器"><a href="#无参数的类装饰器" class="headerlink" title="无参数的类装饰器"></a>无参数的类装饰器</h4><pre><code class="python">class MyFirstDec():
+    def __init__(self, func):
+        self.func = func
+    def __call__(self):
+        print(&#39;This is a classdec!&#39;)
+        self.func()
+@MyFirstDec
+def mytest06():
+    print(&#39;haha...&#39;)
+mytest06()
+</code></pre>
+<pre><code>This is a classdec!
+haha...
+</code></pre><h4 id="带参数的被装饰函数的无参数装饰器"><a href="#带参数的被装饰函数的无参数装饰器" class="headerlink" title="带参数的被装饰函数的无参数装饰器"></a>带参数的被装饰函数的无参数装饰器</h4><pre><code class="python">class MyFirstDec():
+    def __init__(self, func):
+        self.func = func
+    def __call__(self, *args, **kwargs):
+        print(&#39;This is a classdec!&#39;)
+        self.func(*args, **kwargs)
+@MyFirstDec
+def mytest06(a, b):
+    print(&#39;haha...&#39;+str(a+b))
+mytest06(1,2)
+</code></pre>
+<pre><code>This is a classdec!
+haha...3
+</code></pre><h4 id="带参数的装饰器"><a href="#带参数的装饰器" class="headerlink" title="带参数的装饰器"></a>带参数的装饰器</h4><pre><code class="python">class MyFirstDec():
+    def __init__(self, name, msg):
+        self.name = name
+        self.msg = msg
+    def __call__(self, func):
+        def wraps(*args, **kwargs):
+            print(self.msg)
+            print(&#39;This is a %s classdec!&#39;%self.name)
+            func(*args, **kwargs)
+        return wraps
+@MyFirstDec(name = &#39;kid&#39;, msg = &#39;lala&#39;)
+def mytest06(a, b):
+    print(&#39;haha...&#39;+str(a*b))
+mytest06(2, 3)
+</code></pre>
+<pre><code>lala
+This is a kid classdec!
+haha...6
+</code></pre><p>从上面三个基于类的装饰器可以看出，带参数的装饰器和不带参数的装饰器有较大区别<br>在构造函数中传递的不再是要被装饰的函数，而是装饰器中的参数<br>这里func为什么不能往构造函数里面传，我的理解是，装饰器不写参数和写参数相当于两种模式了，不写参数，<strong>call</strong>就不需要接受参数了</p>
+<h2 id="callable"><a href="#callable" class="headerlink" title="callable"></a>callable</h2><ul>
+<li>callable() 是一个python的内置函数，用于检查一个对象是否是可调用的。如果返回True，object仍然可能调用失败；但如果返回False，调用对象ojbect绝对不会成功。<br>对于函数, 方法, lambda 函式, 类, 以及实现了 <strong>call</strong> 方法的类实例, 它都返回 True。  </li>
+<li><strong>call</strong> ： 如果在类中实现了 <strong>call</strong> 方法，那么实例对象也将成为一个可调用对象，这就让实例柯一祥方法一样调用，意味着 x() 与 x.<strong>call</strong>() 是相同的</li>
+</ul>
+<pre><code class="python">class test():
+    def __init__(self):
+        self.a = 10
+    def __call__(self, num):
+        print(num &gt; self.a)
+mytest = test()
+mytest(2)
+</code></pre>
+<pre><code>False
+</code></pre><h2 id="functools-wraps"><a href="#functools-wraps" class="headerlink" title="functools.wraps"></a>functools.wraps</h2><p>其实上面的装饰器都是存在问题的，问题在哪里呢？<br>按照上面所说装饰器的原理，以二层装饰器来举例，<br>mytest02 = test02(mytest02)<br>mytest02 = wraps<br>这里执行mytest02就相当于执行了wraps<br>这时候我们调用的mytest02，mytest02就已经变成wraps函数的了<br>这时候再来查看mytest02的<strong>name</strong>属性，就发现已经变为wraps了</p>
+<pre><code class="python">def test04(func):
+    def wraps(*args, **kwargs):
+        print(&#39;haha&#39;)
+        return func(*args, **kwargs)
+    return wraps
+
+def mytest06():
+    print(&#39;test06&#39;)
+
+@test04
+def mytest07():
+    print(&#39;test07&#39;)
+
+a = mytest06
+b = mytest07
+print(a.__name__)
+print(b.__name__)
+</code></pre>
+<pre><code>mytest06
+wraps
+</code></pre><p>所以，需要把原始函数的<strong>name</strong>等属性复制到wrapper()函数中，否则，有些依赖函数签名的代码执行就会出错<br>当然我们可以写wrapper.__name__ = func.__name__这样的代码，但python内置的functools.wraps就能完成这件事  </p>
+<pre><code class="python">import functools
+def test05(func):
+    @functools.wraps(func)
+    def wraps(*args, **kwargs):
+        print(&#39;haha&#39;)
+        return func(*args, **kwargs)
+    return wraps
+
+def mytest08():
+    print(&#39;test06&#39;)
+
+@test05
+def mytest09():
+    print(&#39;test07&#39;)
+
+a = mytest08
+b = mytest09
+print(a.__name__)
+print(b.__name__)
+</code></pre>
+<pre><code>mytest08
+mytest09
+</code></pre><p>从上面的代码就可以看到，运行已经不再有问题了<br>所以wrapper()的前面加上@functools.wraps(func)即可<br>但wraps功能并不是很完善，数的签名和源码还是拿不到的，要彻底解决这个问题可以借用第三方包，比如wrapt</p>
+<h2 id="内置的装饰器"><a href="#内置的装饰器" class="headerlink" title="内置的装饰器"></a>内置的装饰器</h2><p>内置的装饰器和普通的装饰器原理是一样的，只不过返回的不是函数，而是类对象<br>常用的有三个</p>
+<ol>
+<li>@property<br>使调用类中的方法像引用类中的字段属性一样。被修饰的特性方法，内部可以实现处理逻辑，但对外提供统一的调用方式。遵循了统一访问的原则。<br>相当于没用装饰器你要class.func()来调用方法，有了装饰器你可以class.func来调用方法和调用属性一样<br>经过@property装饰过的函数返回的不再是一个函数，而是一个property对象。</li>
+<li>@staticmethod<br>将类中的方法装饰为静态方法，即类不需要创建实例的情况下，可以通过类名直接引用。到达将函数功能与实例解绑的效果。<br>这个就相当于java中的静态方法吧</li>
+<li>@classmethod<br>类方法的第一个参数是一个类，是将类本身作为操作的方法。类方法被哪个类调用，就传入哪个类作为第一个参数进行操作。<br><a href="https://blog.csdn.net/dyh4201/article/details/78336529" target="_blank" rel="noopener">python @classmethod 的使用场合</a></li>
+</ol>
+<h2 id="第三方包"><a href="#第三方包" class="headerlink" title="第三方包"></a>第三方包</h2><ol>
+<li>decorator<br>装饰器加强包，可以很直观的先定义包装函数wrapper()，再使用decorate(func, wrapper)方法就可以完成一个装饰器<br>也可以使用它自带的@decorator装饰器来完成你的装饰器<br>decorator.py实现的装饰器能完整保留原函数的name，doc和args，唯一有问题的就是inspect.getsource(func)返回的还是装饰器的源代码，你需要改成inspect.getsource(func.__wrapped__)</li>
+</ol>
+<pre><code class="python">from decorator import decorate
+def wraps(func, *args, **kwargs):
+    print(&#39;haha&#39;)
+    return func(*args, **kwargs)
+def test06(func):
+    return decorate(func, wraps)
+
+@test06
+def mytest10():
+    print(&#39;mytest10&#39;)
+
+mytest10()
+</code></pre>
+<pre><code>haha
+mytest10
+</code></pre><pre><code class="python">from decorator import decorator
+@decorator
+def test07(func, *args, **kwargs):
+    print(&#39;haha&#39;)
+    return func(*args, **kwargs)
+@test07
+def mytest11():
+    print(&#39;mytest11&#39;)
+mytest11()
+</code></pre>
+<pre><code>haha
+mytest11
+</code></pre><ol start="2">
+<li>wrapt<br>我觉得这个包，按照说法要是自己写生成器的话，用这个模块是最方便的，也是最好的<br>使用wrapt实现的装饰器不需要担心之前inspect中遇到的所有问题，因为它都帮你处理了，甚至inspect.getsource(func)也准确无误</li>
+</ol>
+<pre><code class="python"># 无参数装饰器
+import wrapt
+@wrapt.decorator
+def wrapper(func, instance, args, kwargs):
+    print(&#39;haha&#39;)
+    return func(*args, **kwargs)
+@wrapper
+def mytest12():
+    print(&#39;mytest12&#39;)
+mytest12()
+</code></pre>
+<pre><code>haha
+mytest12
+</code></pre><blockquote>
+<p>使用wrapt你只需要定义一个装饰器函数，但是函数签名是固定的，必须是(wrapped, instance, args, kwargs)，注意第二个参数instance是必须的，就算你不用它。当装饰器装饰在不同位置时它将得到不同的值，比如装饰在类实例方法时你可以拿到这个类实例。根据instance的值你能够更加灵活的调整你的装饰器。另外，args和kwargs也是固定的，注意前面没有星号。在装饰器内部调用原函数时才带星号</p>
+</blockquote>
+<pre><code class="python"># 带参数装饰器  
+def test08(name):
+    @wrapt.decorator
+    def wrapper(func, instance, args, kwargs):
+        print(name)
+        return func(*args, **kwargs)
+    return wrapper
+@test08(&#39;kid&#39;)
+def mytest13():
+    print(&#39;mytest13&#39;)
+mytest13()
+</code></pre>
+<pre><code>kid
+mytest13
+</code></pre><p>注意 @wrapt.decorator的写的位置</p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ol>
+<li>不要轻易在装饰器外层函数添加操作，比如无参装饰器两层函数，有参装饰器三层函数，尽量是将额外添加的操作写到最里面的那层，外面的操作不好控制（因为返回的是里面函数的闭包，即使同一个对象多次执行，外层函数的操作只会运行一次），容易出错，不要瞎添加。</li>
+<li>有参装饰器和无参装饰器区别较大，特别是类装饰器，注意区别。</li>
+<li>@functools.wraps(func)加在调用func函数的上面，然后括号里有func这个参数</li>
+<li>不能装饰@staticmethod 或者 @classmethod<br>@staticmethod这个装饰器，其实它返回的并不是一个callable对象，而是一个staticmethod对象，那么它是不符合装饰器要求的（比如传入一个callable对象），自然不能在它之上再加别的装饰器。要解决这个问题很简单，只要把你的装饰器放在@staticmethod之前就好了，因为这样装饰器返回的还是一个正常的函数，然后再加上一个@staticmethod是不会出问题的<br>@staticmethod<br>@logging<br>这样就是可行的</li>
+</ol>
+<h2 id="一些例题"><a href="#一些例题" class="headerlink" title="一些例题"></a>一些例题</h2><p>1.能否写出一个@log的decorator，使它既支持：<br>@log<br>def f():<br>    pass<br>又支持：<br>@log(‘execute’)<br>def f():<br>    pass</p>
+<pre><code class="python">import functools
+def log(flag):
+    if isinstance(flag, str):
+        def middle(func):
+            functools.wraps(func)
+            def wraps(*args, **kwargs):
+                if flag == &#39;exec&#39;:
+                    print(&#39;begin call&#39;)
+                    func(*args, **kwargs)
+                    print(&#39;end call&#39;)
+                else:
+                    return func(*args, **kwargs)
+            return wraps
+        return middle
+
+    else:
+        functools.wraps(flag)
+        def wraps(*args, **kwargs):
+            print(&#39;begin call&#39;)
+            flag(*args, **kwargs)
+            print(&#39;end call&#39;)
+        return wraps
+@log
+def f():
+    print(&#39;haha&#39;)
+@log(&#39;exec&#39;)
+def h():
+    print(&#39;hehe&#39;)
+@log(&#39;notexec&#39;)
+def l():
+    print(&#39;lala&#39;)
+f()
+h()
+l()
+</code></pre>
+<pre><code>begin call
+haha
+end call
+begin call
+hehe
+end call
+lala
+</code></pre><p>这题对装饰器和鸭子类型有一定的理解就比较好理解了</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a href="https://www.jianshu.com/p/d296b9446908" target="_blank" rel="noopener">Python的鸭子类型</a></li>
-<li><a href="https://www.cnblogs.com/allen2333/p/8862341.html" target="_blank" rel="noopener">Python - 协议和鸭子类型</a></li>
+<li><a href="https://www.cnblogs.com/cicaday/p/python-decorator.html" target="_blank" rel="noopener">详解Python的装饰器</a></li>
+<li><a href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014318435599930270c0381a3b44db991cd6d858064ac0000#0" target="_blank" rel="noopener">廖雪峰装饰器</a></li>
+<li><a href="https://blog.csdn.net/dyh4201/article/details/78336529" target="_blank" rel="noopener">python @classmethod 的使用场合</a></li>
+<li><a href="https://betacat.online/posts/2016-10-30/python-decorator-more/" target="_blank" rel="noopener">Python装饰器的另类用法</a></li>
+<li><a href="https://www.jianshu.com/p/e1d95c4e1697?utm_source=oschina-app" target="_blank" rel="noopener">Python <strong>call</strong>详解</a></li>
 </ol>
 
         </div>
@@ -432,36 +702,19 @@ i&#39;m walking!
       </div>
       <section class="post-squares nextprev">
         
-          
-            <div class="post-nepre half previous">
-          
-            <a href="/2019/03/20/装饰器（Decorator）/" rel="prev">
-              <div class="background">
-                <img class="lazyload" src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/blogpic/python高级6.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
-              </div>
-              <span class="label">
-              Previous Post</span>
-              <div class="info">
-                <h3>
-                装饰器（Decorator）</h3>
-                <hr>
-              </div>
-            </a>
-          </div>
-        
         
           
-            <div class="post-nepre half next">
+            <div class="post-nepre full next">
           
-            <a href="/2019/03/05/匿名函数lambda & 偏函数/" rel="next">
+            <a href="/2019/03/06/python鸭子类型与协议理解/" rel="next">
               <div class="background">
-                <img class="lazyload" src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/blogpic/python高级4.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+                <img class="lazyload" src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/blogpic/python高级5.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
               </div>
               <span class="label">
               Next Post</span>
               <div class="info">
                 <h3>
-                匿名函数lambda &amp; 偏函数</h3>
+                python鸭子类型与协议理解</h3>
                 <hr>
               </div>
             </a>
