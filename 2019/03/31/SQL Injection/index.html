@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Tag: 信号量 | Kid</title>
+  <title itemprop="name">SQL Injection 1 | Kid</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -343,63 +343,291 @@
   </div>
 </header>
 
-      
-<div class="pattern-center-blank"></div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="信号量.img" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
-  </div>
-  <header class="pattern-header ">
-    <h1 class="cat-title">信号量</h1>
-  </header>
-</div>
-<div id="content" class="site-content">
-  <div id="primary" class="content-area">
+        <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+  <div class="pattern-center-blank"></div>
+  
+    <div class="pattern-center single-center">
+      <!-- 有配图默认渲染第一张 -->
+      <div class="pattern-attachment-img lazyload" style="background-image: url(https://ws1.sinaimg.cn/large/006tKfTcly1g1me5p32u2j30fu08cglm.jpg);" src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="https://ws1.sinaimg.cn/large/006tKfTcly1g1me5p32u2j30fu08cglm.jpg">
+      </div>
+      <header class="pattern-header single-header">
+        <h1 class="entry-title">
+        SQL Injection 1</h1>
+        <p class="entry-census">
+          <span>
+            <a href="/">
+              <img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1mdwlzz4xj30u00u0ngt.jpg">
+            </a>
+          </span>
+          <span>
+            <a href="/">Kid</a>
+          </span>
+          <span class="bull">
+          ·</span>
+          2019-3-31<span class="bull">
+          ·</span>
+        <span id="busuanzi_value_page_pv"></span>次阅读</p>
+      </header>
+    </div>
+  
+  <div id="content" class="site-content"> <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    <article class="post post-list" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2018/12/04/PyQt(三)QThread与信号/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="SQL-Injection"><a href="#SQL-Injection" class="headerlink" title="SQL Injection"></a>SQL Injection</h1><h2 id="手工注入"><a href="#手工注入" class="headerlink" title="手工注入"></a>手工注入</h2><h3 id="注入思路"><a href="#注入思路" class="headerlink" title="注入思路"></a>注入思路</h3><p>数据库注入主要有如下方法：</p>
+<blockquote>
+<pre><code class="undefined">UNION query SQL injection（可联合查询注入）
+Stacked queries SQL injection（可多语句查询注入）
+Boolean-based blind SQL injection（布尔型注入）
+Error-based SQL injection（报错型注入）
+Time-based blind SQL injection（基于时间延迟注入）
+</code></pre>
+</blockquote>
+<p>下面主要结合dvwa来介绍下可联合查询注入</p>
+<p>注入思路主要如下</p>
+<ol>
+<li><p>判断是否存在注入点</p>
+</li>
+<li><p>获取当前数据库名（利用database()函数）</p>
+</li>
+<li><p>利用information_schema的tables表获取当前数据库表的表名信息</p>
+</li>
+<li><p>利用information_schema的columns获取表的字段名信息</p>
+</li>
+<li><p>获取表中的信息</p>
+</li>
+</ol>
+<h3 id="dvwa练习"><a href="#dvwa练习" class="headerlink" title="dvwa练习"></a>dvwa练习</h3><ol>
+<li><p>LOW</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1g1lu92qw2mj30r00b0mxn.jpg" alt="SQL Injection4"></p>
+<p>正常输入数字，观察下返回结果。基本上可以明白是输入ID来查询用户名的操作。</p>
+<p>输入1‘后返回错误提示信息，由此判断存在注入</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1g1lueaslybj326002qmxh.jpg" alt="SQL Injection5"></p>
+<p>然后输入1 or 1 = 1，返回结果和输入1没有区别</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1g1lujzv76zj30jm07aglr.jpg" alt="SQL Injection6"></p>
+<p>再输入 1‘ or ‘1’ = ‘1，成功得到了所有的信息，所以可以判断出是字符型注入</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1g1lum037p4j30ne0jiab0.jpg" alt="SQL Injection7"></p>
+<p>下面来直接尝试下能否利用database()函数获取数据库名</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1lur4zataj30je0aqjru.jpg" alt="SQL Injection8"></p>
+<p>可以发现成功的获得了数据库名，有了数据库名后，就尝试是否有权限访问information_schema数据库中的表，来尽可能多的获取当前数据库的信息（所以设置好相应的权限也是防注入的重要方法吧）<del>构造SQL可以开个记事本之类的来用防止写错也好修改，就不要在web上直接输入</del></p>
+<p>1’ union select 1,group_concat(table_name) from information_schema.tables where table_schema=database() #</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1g1lv9g6c04j31b208yt9p.jpg" alt="SQL Injection9"></p>
+<p>从上面的结果可以看到成功的获得了表名，再利用information_schema这个数据查看下每张表中有哪些字段</p>
+<p>1’ union select 1,group_concat(column_name) from information_schema.columns where table_name = ‘guestbook’ #</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1g1lvn8ho6nj319808aq3x.jpg" alt="SQL Injection10"></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1g1lvodnsfnj31b408ot9o.jpg" alt="SQL Injection11"></p>
+<p>可以看到成功的获得了每张表对应的字段名。现在来获取user和password</p>
+<p>1’ union select user,password from users #<img src="https://ws4.sinaimg.cn/large/006tKfTcly1g1lvs9xgfjj30le0lqmz1.jpg" alt="SQL Injection12"></p>
+<p>这样我们就获得了用户名和对应的密码哈希值。可以去在线的哈希破解网站跑一下，弱口令一般都可以免费跑出来（下图就是admin对应哈希密码跑出来的结果），通过上面一顿操作我们就拿到了所有的用户名和密码！<img src="https://ws2.sinaimg.cn/large/006tKfTcly1g1lvvgd1ljj31160be0tm.jpg" alt="SQL Injection13"></p>
+</li>
+</ol>
+<ol start="2">
+<li><p>MEDIUM</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1lyrqw0cxj30d402m0so.jpg" alt="SQL Injection14"></p>
+<p>可以看到中等难度是下拉框形式，没法输入</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1g1lythgqdrj323i0jkju4.jpg" alt="SQL Injection15"></p>
+<p>提交试了一下，发现也是输入ID返回用户名，提交方式是post，所以只有截取数据包进行修改了</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1g1lz0v7w57j31sg0u048u.jpg" alt="SQL Injection16"></p>
+<p>打开burp设置好代理，浏览器也设好相应的代理</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1g1lz58nlxaj31fc0namzq.jpg" alt="SQL Injection17"></p>
+<p>可以看到捕获到的包的body携带了提交的信息，在这里进行如low等级的尝试</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1lz7m2f9hj30ca01ka9z.jpg" alt="SQL Injection18"></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1g1lz8eeb8aj30pq0j03zg.jpg" alt="SQL Injection19"></p>
+<p>可以看到成功的执行了，所以这里是数字型注入</p>
+<p>同理我们来尝试下能不能获取数据库名</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1lzbbf0c3j30h6090q3b.jpg" alt="SQL Injection20"></p>
+<p>可以看到成功的获取到了数据库名还是，dvwa</p>
+<p>继续看下能否利用information_schema来获取这个数据库的信息</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1lzfxk6raj31ag09m0tq.jpg" alt="SQL Injection21"></p>
+<p>OK这里也成功获取到了表名，guestbook，users</p>
+<p>下面继续利用information_schema来获取表中字段信息</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1g1lzk2j5r7j329s048mxl.jpg" alt="SQL Injection22"></p>
+<p>然后发现这里gg了…还好这里有返回信息，我们可以发现输入的单引号被转义成了\，这里对方加入了特殊字符转义来防注入，这里我们用16进制来绕过</p>
+<p>users查下ascii表得到0x7573657273<img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1lzu5zab5j31b809s75e.jpg" alt="SQL Injection23"></p>
+<p>Ok,可以发现我们成功的得到了表的字段信息下面来获取user和password</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1lzx7st8pj30n60lq765.jpg" alt="SQL Injection24"></p>
+<p>成功，medium等级主要需要一个截包修改body和处理转义问题</p>
+</li>
+<li><p>HARD</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1g1m26incxoj30ka0e2dgh.jpg" alt="image-20190331163042873"></p>
+<p>可以看到High等级是弹窗后让输入查询。然后开始测试</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1m28kzljyj30hm058wel.jpg" alt="SQL Injection25"></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1m292c8u7j30bo06owel.jpg" alt="SQL Injection26"></p>
+<p>发现无论是字符还是数字返回的都只有一条信息，推测有limit限制</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1g1m2az3k7xj30bk0i80te.jpg" alt="image-20190331163503654"></p>
+<p>测试后发现字符型注入成功，</p>
+<p>继续试能不能获得数据库名</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1g1m2d3buvjj30fw08kglx.jpg" alt="image-20190331163705814"></p>
+<p>成功获取到数据库名，dvwa</p>
+<p>继续看能否利用informatiuon_schema库获取当前数据库信息</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1m2frunw8j31as080mxw.jpg" alt="image-20190331163940458"></p>
+<p>又成功获取到表名，guestbook，users，继续看能否获取到users信息</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1g1m2j9oczfj319o088751.jpg" alt="image-20190331164300901"></p>
+<p>好吧又成功获取到了表的字段名</p>
+<p>开始输入时少输入了一个#，结果弹出了下面的窗口</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1g1m305pveuj30vq080wex.jpg" alt="image-20190331165915338"></p>
+<p>无论怎么刷新或重新登陆弹出的窗口依旧是上面的，清除cookie后才恢复正常</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1g1m32o4t23j30u00wegn9.jpg" alt="image-20190331170140167"></p>
+<p>然后就成功的得到了用户名密码</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1m39mkduqj30pc0ny0um.jpg" alt="image-20190331170821604"></p>
+<p>所以high等级依旧主要加如了一个limit可以通过注视绕过，以及错误后阻止操作，通过清理cookie解决了<del>所以用匿名窗口就方便很多，关了重开就是了</del></p>
+</li>
+<li><p>IMPOSSIBLE</p>
+<p>测试了下发现只有正常查询的时候回返回结果，结果返回与数量不一致时不会返回任何结果</p>
+<p>采用了所谓的PDO技术，OK这个技术在后面我会去学习下再来解释，顺便看下PHP，学习下PHP的审计</p>
+<p><del>毕竟是是世界最好的语言</del></p>
+</li>
+</ol>
+<h3 id="tips（主要都是些SQL语法）"><a href="#tips（主要都是些SQL语法）" class="headerlink" title="tips（主要都是些SQL语法）:"></a>tips（主要都是些SQL语法）:</h3><ol>
+<li><p>mysql中的注释方法：</p>
+<ol>
+<li><p>…</p>
+</li>
+<li><p>“– “，**注意–后面有一个空格</p>
+</li>
+<li><p>/*<em>…</em> */</p>
+<p>这里的注释符号可以帮我去注释掉字符注入中后面的 ‘，这样可以让我们去执行order by这些操作</p>
+</li>
+</ol>
+</li>
+<li><p>order by num：</p>
+<p>order by是SQL语句中用于指定排序的，一般接的是列名，但也可以用数字，比如order by 1就表示已第一列为排序标准，默认升序排序，这避免了我们不知道列名</p>
+<p><strong>通过这样的尝试我们也能获取到数据表的列数</strong></p>
+</li>
+<li><p>select除了查询的功能</p>
+<ol>
+<li><p>插入功能</p>
+<p>很神奇，原来select还可以插入（或者说复制表），一直以为是查询用的…</p>
+<blockquote>
+<p>select into from 和 insert into select都是用来复制表，两者的主要区别为：</p>
+<p>select into from 要求目标表不存在，因为在插入时会自动创建。</p>
+<p>insert into select from 要求目标表存在</p>
+</blockquote>
+</li>
+<li><p>select 1,2…</p>
+<p>这个主要配合union使用，union select 1,2,3..</p>
+<p>主要用于SQL注入时，去判断字段顺序</p>
+<p>这里1,2,3…的个数要和前面union的表列数一致，这样才能拼接</p>
+<p>这样能配合前面显示的数据来判断，前面数据的字段顺序</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1l9emuigfj30ea03n74h.jpg" alt="union_select"></p>
+<p>如上图所示在我们注入的时候输入的是 1 union select 1,2</p>
+<p>返回结果我们就可以根据1,2对应的位置判断出1,test1，它们对应的先后顺序</p>
+<p>也有用user(),version(),database(),loadfile()…这些方法来获取信息</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1g1l9l5wchvj30gf03p744.jpg" alt="union_select2"></p>
+<p>最后我们知道一些表的表名还可以通过这样的方式来试探那张表中的信息</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1g1lu4a2ktxj30he03gweb.jpg" alt="SQL Injection3"></p>
+<p>如上图所示。这里我们假设知道有一张pwd的表，然后猜测有字段user,password这样的字段（猜不到的就和上面一样用数字来代替），这样我们就可以获取到一些信息了（当然正常密码都不会已明文存储…可以去一些在线破hash的网站尝试一下）</p>
+</li>
+</ol>
+</li>
+<li><p>information_schema</p>
+<p>MySQL系统自带的数据库有个information_schema数据库，里面有张名tables的表</p>
+<p>里面有存放所有数据库的表信息</p>
+<p>select group_concat(table_name) from information_schema.tables where table_schema=database() </p>
+<p>通过上面的SQL语句就可以查出当前数据库中所有表的名称</p>
+<p>知道表名称后通过下面的SQL语句又可以求出表中的列名</p>
+<p>select group_concat(column_name) from information_schema.columns where table_name=’tablename’</p>
+</li>
+<li><p>concat(),concat_ws(),group_concat()</p>
+</li>
+<li><p>要用当前数据库名的时候尽量直接用database()，不要写database()查出来的数据库名，有些地方会转义单引号这些，而直接写database()不会被影响</p>
+</li>
+<li><p>遇到字符转义通过改写16进制绕过</p>
+</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>基本上是刚接触web安全，有很多地方可能自己理解也不是很到位，欢迎一起沟通交流。</p>
+<p>这次主要结合dvwa的SQL注入来进行的一个初浅的web安全学习，后面会继续完成dvwa的盲注，sqlmap等的工具应用，和继续深入的学习sql的注入以及别的web安全知识</p>
+<p>这次sql注入确实也学习了很多，比如很多sql语句自己以前学习Django调用数据库时都是没有用过的，还有大佬为我演示过利用sql语句来上传网马等的操作，确实对数据库的了解还是太初浅了。也通过本次学习sql注入也思考了很多关于如何预防注入的方法，比如设置好权限，对于用户的查询权限就设置好，定到具体的数据库以及表，限制用户的输入，对输入进行严格的判断等…</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<li><a href="https://www.freebuf.com/articles/web/120747.html" target="_blank" rel="noopener">新手指南：DVWA-1.9全级别教程之SQL Injection</a></li>
+<li><a href="http://www.storysec.com/dvwa-sql-injection.html" target="_blank" rel="noopener">DVWA SQL Injection 通关教程</a></li>
+</ol>
+<p>​            </p>
+
         </div>
-        <img width="150" height="150" src="https://ws2.sinaimg.cn/large/006tKfTcly1g1mecowq1pj30xc0kutcu.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt>
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2018/12/04/PyQt(三)QThread与信号/">
-    PyQt(三)QThread与信号</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2018-12-4</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2018/12/04/PyQt(三)QThread与信号/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏<div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="/images/donate/AliPayQR.JPG"></li>
+                <li class="wechat-code"><img src="/images/donate/WeChanQR.JPG"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc-container" style="height: 1053px;">
+      <div class="toc" style="background: none;"></div>
       </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
+      <section class="post-squares nextprev">
+        
+        
+          
+            <div class="post-nepre full next">
+          
+            <a href="/2019/03/20/装饰器（Decorator）/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="https://ws4.sinaimg.cn/large/006tKfTcly1g1medsk9zkj31c00u0gry.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                装饰器（Decorator）</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "gcPhnmdmVfJN1u698TMvCz8k-gzGzoHsz",
+        appKey: "PduygKswwo4t1G5Bip0IURqq",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
 
-
-      <div class="clearer">
-      </div>
-    </main>
-    
-  </div>
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="profile gravatar"><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1mdwlzz4xj30u00u0ngt.jpg" itemprop="image" alt="Kid" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="/" itemprop="url" rel="author">Kid</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>路漫漫其修远兮，吾将上下而求索</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
+<!-- 不蒜子 网页计数器 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>
