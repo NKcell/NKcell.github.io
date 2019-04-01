@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">Tag: web安全 | Kid</title>
+  <title itemprop="name">SQL Injection 1（勘误） | Kid</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -343,96 +343,152 @@
   </div>
 </header>
 
-      
-<div class="pattern-center-blank"></div>
-<div class="pattern-center ">
-  <div class="pattern-attachment-img">
-    <img src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="web安全.img" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
-  </div>
-  <header class="pattern-header ">
-    <h1 class="cat-title">web安全</h1>
-  </header>
-</div>
-<div id="content" class="site-content">
-  <div id="primary" class="content-area">
+        <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+  <div class="pattern-center-blank"></div>
+  
+    <div class="pattern-center single-center">
+      <!-- 有配图默认渲染第一张 -->
+      <div class="pattern-attachment-img lazyload" style="background-image: url(https://ws1.sinaimg.cn/large/006tKfTcly1g1me5p32u2j30fu08cglm.jpg);" src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="https://ws1.sinaimg.cn/large/006tKfTcly1g1me5p32u2j30fu08cglm.jpg">
+      </div>
+      <header class="pattern-header single-header">
+        <h1 class="entry-title">
+        SQL Injection 1（勘误）</h1>
+        <p class="entry-census">
+          <span>
+            <a href="/">
+              <img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1mdwlzz4xj30u00u0ngt.jpg">
+            </a>
+          </span>
+          <span>
+            <a href="/">Kid</a>
+          </span>
+          <span class="bull">
+          ·</span>
+          2019-4-1<span class="bull">
+          ·</span>
+        <span id="busuanzi_value_page_pv"></span>次阅读</p>
+      </header>
+    </div>
+  
+  <div id="content" class="site-content"> <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    <article class="post post-list" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2019/04/01/SQL Injection 1（勘误）/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://ws1.sinaimg.cn/large/006tKfTcly1g1me5p32u2j30fu08cglm.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt>
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2019/04/01/SQL Injection 1（勘误）/">
-    SQL Injection 1（勘误）</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2019-4-1</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2019/04/01/SQL Injection 1（勘误）/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
-    <article class="post post-list" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="post-entry">
-    <div class="feature">
-      <a href="/2019/03/31/SQL Injection/">
-        <div class="overlay">
-          <i class="iconfont icon-text">
-          </i>
-        </div>
-        <img width="150" height="150" src="https://ws1.sinaimg.cn/large/006tKfTcly1g1me5p32u2j30fu08cglm.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt>
-      </a>
-    </div>
-    <h1 class="entry-title">
-    <a href="/2019/03/31/SQL Injection/">
-    SQL Injection 1</a>
-    </h1>
-    <div class="p-time">
-      <i class="iconfont icon-time">
-      </i>
-    2019-3-31</div>
-    <p>
-    </p>
-    <footer class="entry-footer">
-      <div class="post-more">
-        <a href="/2019/03/31/SQL Injection/">
-          <i class="iconfont icon-caidan">
-          </i>
-        </a>
-      </div>
-    </footer>
-  </div>
-  <hr>
-</article>
-  
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="SQL-Injection-1（勘误）"><a href="#SQL-Injection-1（勘误）" class="headerlink" title="SQL Injection 1（勘误）"></a>SQL Injection 1（勘误）</h1><p>– 关于information_schema的进一步理解</p>
+<h2 id="勘误"><a href="#勘误" class="headerlink" title="勘误"></a>勘误</h2><p>上篇博客（<a href="https://nkcell.github.io/2019/03/31/SQL%20Injection/" target="_blank" rel="noopener">SQL Injection 1</a>）时我说了限制权限就能解决联合注入的问题，好吧,真的是<strong>too young too simple</strong></p>
+<p>自己真的是太无知了，幸好在进行盲注前自己动手实验了一下，果然实践才是检验真理的唯一标准</p>
+<p>OK，先来创建一个只有访问dvwa数据库和简单操作的用户<del>（简单在MySQL建了一个test数据库和两张表dvwa和pwd，插入了简单的一些数据）</del></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1g1nmjnym0nj30f802a0sl.jpg" alt="1"></p>
+<p>然后我们去mysql数据库的user表中查看一下，OK，发现test1用户确实已经创建好了</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1g1nmjuzkbsj307t05rdfp.jpg" alt="2"></p>
+<p>接着我们退出当前用户已test1用户身份登录</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1g1nmk5qn6uj30cz03kt8l.jpg" alt="3"></p>
+<p>这时候show databases;一下，瞬间眉头一皱发现事情没那么简单…</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1g1nmkdq21qj30cr03k3yb.jpg" alt="4"></p>
+<p>没错我们只授权了test数据库，但却出现了我们联合注入的好朋友information_schema数据库…</p>
+<p>这时候我们按照上篇博客注入的命令走一遍，</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1g1nmkkqeovj30ot07vjrd.jpg" alt="5"></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1g1nmknjg0zj30oy03xmx1.jpg" alt="6"></p>
+<p>好吧，真的是限制了权限依旧是没什么卵用啊…</p>
+<blockquote>
+<p>information_schema只是一个视图，新建用户就算没有任何权限都能查到这个视图，但该用户只能看到自己被授权的<br>信息</p>
+</blockquote>
+<p>查询了下information_schema的信息，然后发现了上面一句话，我的理解就是因为我们给用户授权了test数据库的一些使用权所以可以通过information查看到当前的授权信息</p>
+<p>切换到root用户简单建一个表插入点数据测试下</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1g1nmkwezlaj30lz04pq2w.jpg" alt="7"></p>
+<p>在root用户下，切换到test数据库下查询下test2数据库中的表明，没有问题</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1g1nml45m6aj30oz041glh.jpg" alt="8"></p>
+<p>切换回test1用户，再做上面一样的查询</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1g1nml939rlj30om06ggll.jpg" alt="9"></p>
+<p>可以发现返回的表名为null，所以限制权限还是有作用，至少能保护没有授权表的信息</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://segmentfault.com/q/1010000011644946" target="_blank" rel="noopener">mysql5.7给用户只授权了具体的某个数据库，为何能看到information_schema数据库啊？</a></li>
+</ol>
 
-
-      <div class="clearer">
+        </div>
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏<div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="/images/donate/AliPayQR.JPG"></li>
+                <li class="wechat-code"><img src="/images/donate/WeChanQR.JPG"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc-container" style="height: 1053px;">
+      <div class="toc" style="background: none;"></div>
       </div>
-    </main>
-    
-  </div>
+      <section class="post-squares nextprev">
+        
+        
+          
+            <div class="post-nepre full next">
+          
+            <a href="/2019/03/31/SQL Injection/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="https://ws1.sinaimg.cn/large/006tKfTcly1g1me5p32u2j30fu08cglm.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                SQL Injection 1</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "gcPhnmdmVfJN1u698TMvCz8k-gzGzoHsz",
+        appKey: "PduygKswwo4t1G5Bip0IURqq",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="profile gravatar"><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1mdwlzz4xj30u00u0ngt.jpg" itemprop="image" alt="Kid" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="/" itemprop="url" rel="author">Kid</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>路漫漫其修远兮，吾将上下而求索</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
+<!-- 不蒜子 网页计数器 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>
