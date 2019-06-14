@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">CISCN 华北赛区 Day1 Web2 | Kid</title>
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "さくら荘そのKid";
+  mashiro_option.author_name = "Kid";
+  mashiro_option.site_url = "https://nkcell.github.io/";
+  mashiro_option.v_appId = "gcPhnmdmVfJN1u698TMvCz8k-gzGzoHsz";
+  mashiro_option.v_appKey = "PduygKswwo4t1G5Bip0IURqq";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "/images/backgroundpic/bgp1.jpeg".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop filter-dot">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a href="https://nkcell.github.io/">
+          <img src="/images/avatar.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>Make the most of everyday !</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="https://github.com/NKcell" target="_blank" class="social-github" title="github">
+                    <img src="/images/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="/" target="_blank" class="social-github" title="sina">
+                    <img src="/images/social/sina.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="/" target="_blank" class="social-github" title="wangyiyun">
+                    <img src="/images/social/wangyiyun.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="/" target="_blank" class="social-github" title="zhihu">
+                    <img src="/images/social/zhihu.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="/" target="_blank" class="social-github" title="email">
+                    <img src="/images/social/email.svg">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://blog.csdn.net/qq_26406447" target="_blank" class="social-github" title="csdn">
+                    <img src="/images/social/csdn.png">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style>
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name src width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">さくら荘その</span>
+            <span class="shironeko">Kid</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/随想/">
+                          <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                          随想
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    清单
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa fa-tags faa-shake" aria-hidden="true"></i>
+                    类别
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/PyQt/">
+                          <i class="fa " aria-hidden="true"></i>
+                          PyQt
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/python高级/">
+                          <i class="fa " aria-hidden="true"></i>
+                          Py高级
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/theme-sakura/">
+                          <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                          主题
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+        <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+  <div class="pattern-center-blank"></div>
+  
+    <div class="pattern-center single-center">
+      <!-- 有配图默认渲染第一张 -->
+      <div class="pattern-attachment-img lazyload" style="background-image: url(https://raw.githubusercontent.com/NKcell/BlogPic/master/20190614125126.jpg);" src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190614125126.jpg">
+      </div>
+      <header class="pattern-header single-header">
+        <h1 class="entry-title">
+        CISCN 华北赛区 Day1 Web2</h1>
+        <p class="entry-census">
+          <span>
+            <a href="/">
+              <img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190609173515.jpg">
+            </a>
+          </span>
+          <span>
+            <a href="/">Kid</a>
+          </span>
+          <span class="bull">
+          ·</span>
+          2019-6-14<span class="bull">
+          ·</span>
+        <span id="busuanzi_value_page_pv"></span>次阅读</p>
+      </header>
+    </div>
+  
+  <div id="content" class="site-content"> <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="CISCN-华北赛区-Day1-Web2"><a href="#CISCN-华北赛区-Day1-Web2" class="headerlink" title="CISCN 华北赛区 Day1 Web2"></a>CISCN 华北赛区 Day1 Web2</h1><p><br></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>关注大佬的博客看到大佬又做了一道有意思的题还提供了环境，这里来体验下。<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190613175522.png" alt="1"><br>一看这个网站就很有意思…最近黑kunkun的可真多，前面0708那个漏洞github搜exp，下下来一运行 ，输出你打篮球真的很像CXK…过分…你打篮球才像CXK，你们全家打篮球都像CXK！</p>
+<blockquote>
+<p>复现环境：<a href="https://github.com/CTFTraining/CISCN_2019_northern_China_day1_web2" target="_blank" rel="noopener">https://github.com/CTFTraining/CISCN_2019_northern_China_day1_web2</a>.  在线复现环境：<a href="http://web44.buuoj.cn/" target="_blank" rel="noopener">http://web44.buuoj.cn/</a><br>知识点：</p>
+<ul>
+<li>薅羊毛与逻辑漏洞</li>
+<li>cookie伪造</li>
+<li>python反序列化</li>
+</ul>
+</blockquote>
+<p><br></p>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><p>进入网站后正常先注册，然后进入页面。<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190613181104.png" alt="2"><br>这里正常的先尝试购买，购买后发现资金募集这里增加了购买物品的金额，个人中心里剩余金额减少了购买时的实际付款<br>这里是想到了抓包，然后直接改金额尝试，但看到上面的提示说要买lv6，简单翻了几页并没有发现lv6，这时候看到url有page参数，来进行修改，发现到500都还有，这就不能手工找了，简单写个脚本来找<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190613191804.png" alt="3"><br>这里检查页面元素可以发现lv4，lv5都是以图片形式加载的，图片名分别对应为lv4.png，lv5.png</p>
+<pre><code class="python">from urllib import request
+
+url = &quot;http://web44.buuoj.cn/shop?page=&quot;
+
+for i in range(1000):
+    response = request.urlopen(url+str(i))
+    if &quot;lv6.png&quot; in response.read().decode(&#39;utf-8&#39;):
+        print(i)
+        break
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190613192104.png" alt="4"><br>可以看到181页，找到了lv6<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190613192320.png" alt="6"><br>可以看到高贵的lv6果然是天价，这时候，就试着来尝试抓包改价格了<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190613193145.png" alt="6"><br>可以看到有价格和打折额度，但是无论将价格改为0还是将折扣改为0，都显示操作失败…<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190613193325.png" alt="7"><br>陷入僵局，果然还是只能换偶像了…<br>好吧看了下大佬的writeup这里不要改为0，改为很小的数就行了<br>尝试之后发现是只能更改折扣那里的值，这算是一个逻辑漏洞吧，然后会进行一个重定向<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190613193830.png" alt="8"><br>我们进入302跳转后的页面，可以看到提示要求admin才能登陆<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190613194006.png" alt="9"><br>这时候肯定是想着去看cookie值，在哪里把用户名进行替换<br>可以看上面上面的图，里面的cookie里面有JWT（JSON Web Token），我这样的菜鸡也是第一次遇到…查了下JWT，然后知道可以解析看看<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190613194509.png" alt="10"><br>可以看到解析结果果然有用户名，这时候我们就需要来对它进行替换（这里我也想过重新注册一个名为admin的用户，结果不给注册，这个骚操作行不通）<br>用 <a href="https://github.com/brendan-rius/c-jwt-cracker" target="_blank" rel="noopener">c-jwt-cracker</a>来跑密钥<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190613200137.png" alt="11"><br>可以看到成功的跑出了密钥<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190613200420.png" alt="12"><br>用得到的密钥生成admin的JWT，然后cookie进行修改，页面就正常显示了<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190613200539.png" alt="13"><br>检查源码发现友军给我们留下了好东西<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190613200646.png" alt="14"><br>把源码下载回来<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190613200952.png" alt="15"><br>是一堆py文件，python代码审计又是第一次遇到，又懵逼…看了看大佬的writeup，说是有python的反序列化漏洞…前面一直说看python反序列化漏洞来着…<br>首先看反序列化部分的代码吧<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190613213844.png" alt="16"><br>可以看到这里用的是tornado框架，这个框架用的好像比较少，好像是停止更新了吧<br>get_argument是tornado获取参数的方法，不区分get和post<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190613214338.png" alt="17"><br>可以看到我们提交过去的body里面确实有become参数</p>
+<blockquote>
+<p>相比于 PHP 反序列化必须要依赖于当前代码中类的存在以及方法的存在，Python 凭借着自己彻底的面向对象的特性完胜 PHP ，Python 除了能反序列化当前代码中出现的类(包括通过 import的方式引入的模块中的类)的对象以外，还能利用其彻底的面向对象的特性来反序列化使用 types 创建的匿名对象，这样的话就大大拓宽了我们的攻击面</p>
+</blockquote>
+<blockquote>
+<p>当序列化以及反序列化的过程中中碰到一无所知的扩展类型( python2,这里指的就是新式类)的时候，可以通过类中定义的 __reduce__ 方法来告知如何进行序列化或者反序列化也就是说我们，只要在新式类中定义一个__reduce__ 方法，我们就能在序列化的使用让这个类根据我们在 __reduce__ 中指定的方式进行序列化</p>
+</blockquote>
+<p>这里我们就可以直接写payload了，我们可以用nc在vps上开个端口监听，让其去访问（但这里大佬比赛时环境不能访问外网，访问的是内网的xss平台…没太懂这个xss平台自己搭的还是本来就有…）<br>但这里也可以利用返回参数把它带出来<br>可以看到上面的代码p是可以返回的，这里我们让p等于flag的内容，就能获得flag了</p>
+<p>payload：</p>
+<pre><code class="python">import pickle
+import urllib
+
+class payload(object):
+    def __reduce__(self):
+       return (eval, (&quot;open(&#39;/flag.txt&#39;,&#39;r&#39;).read()&quot;,))
+
+a = pickle.dumps(payload())
+a = urllib.quote(a)
+print a
+</code></pre>
+<p>用运行得到的结果去替代原有参数就能成功获得flag<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190613230328.png" alt="18"></p>
+<p><br></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这道题也是很有意思，让我也去学习了许多新的知识点，JWT，python反序列化，等等<br>这里也比较理解大佬以前说的python反序列化比起php来危害更大，更容易任意命令执行<br>最后我想说虽然拿到了flag但最终还是没能买下lv6会员啊，hhh（这道题真的还是很符合当前热点的，但真的不希望以后再有人向github传CXK的exp了！！！）</p>
+<p><br></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="http://www.sohu.com/a/274879579_729271" target="_blank" rel="noopener">一篇文章带你理解漏洞之 Python 反序列化漏洞!</a></li>
+<li><a href="https://www.zhaoj.in/read-5946.html/comment-page-1#comment-4747" target="_blank" rel="noopener">CISCN 华北赛区 Day1 Web2 WriteUp</a></li>
+<li><a href="https://xz.aliyun.com/t/5383" target="_blank" rel="noopener">【CISCN2019】华北赛区-天枢&amp;waterflower</a></li>
+<li><a href="https://www.cnblogs.com/cjsblog/p/9277677.html" target="_blank" rel="noopener">认识JWT</a></li>
+</ol>
+
+        </div>
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏<div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="/images/donate/AliPayQR.JPG"></li>
+                <li class="wechat-code"><img src="/images/donate/WeChanQR.JPG"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc-container" style="height: 1053px;">
+      <div class="toc" style="background: none;"></div>
+      </div>
+      <section class="post-squares nextprev">
+        
+        
+          
+            <div class="post-nepre full next">
+          
+            <a href="/2019/06/12/区块链V3/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612083750.jpeg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                简易区块链实现V3（golang）</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "gcPhnmdmVfJN1u698TMvCz8k-gzGzoHsz",
+        appKey: "PduygKswwo4t1G5Bip0IURqq",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="profile gravatar"><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190609173515.jpg" itemprop="image" alt="Kid" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="/" itemprop="url" rel="author">Kid</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>路漫漫其修远兮，吾将上下而求索</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+<!-- 不蒜子 网页计数器 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Kid<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;"></p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+       
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine@1.3.4/dist/Valine.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "/video","name":"video1.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "/video","name":"video1.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class>
+  <div class="m-avatar">
+    <img src="/images/avatar.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">さくら荘そのKid</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/随想/">
+                  <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                  随想
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            清单
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa fa-tags faa-shake" aria-hidden="true"></i>
+            类别
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/PyQt/">
+                  <i class="fa " aria-hidden="true"></i>
+                  PyQt
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/python高级/">
+                  <i class="fa " aria-hidden="true"></i>
+                  Py高级
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+              <li>
+                <a href="/theme-sakura/">
+                  <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                  主题
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .lrc-show {
+    display: block !important;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<div class="aplayer" data-id="2711618562" data-server="netease" data-type="playlist" data-fixed="true" data-order="random">
+</div>
+<script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+</body>
+</html>

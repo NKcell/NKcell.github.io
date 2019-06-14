@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">攻防世界web | Kid</title>
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "さくら荘そのKid";
+  mashiro_option.author_name = "Kid";
+  mashiro_option.site_url = "https://nkcell.github.io/";
+  mashiro_option.v_appId = "gcPhnmdmVfJN1u698TMvCz8k-gzGzoHsz";
+  mashiro_option.v_appKey = "PduygKswwo4t1G5Bip0IURqq";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "/images/backgroundpic/bgp1.jpeg".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop filter-dot">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a href="https://nkcell.github.io/">
+          <img src="/images/avatar.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>Make the most of everyday !</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="https://github.com/NKcell" target="_blank" class="social-github" title="github">
+                    <img src="/images/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="/" target="_blank" class="social-github" title="sina">
+                    <img src="/images/social/sina.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="/" target="_blank" class="social-github" title="wangyiyun">
+                    <img src="/images/social/wangyiyun.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="/" target="_blank" class="social-github" title="zhihu">
+                    <img src="/images/social/zhihu.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="/" target="_blank" class="social-github" title="email">
+                    <img src="/images/social/email.svg">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://blog.csdn.net/qq_26406447" target="_blank" class="social-github" title="csdn">
+                    <img src="/images/social/csdn.png">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style>
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name src width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">さくら荘その</span>
+            <span class="shironeko">Kid</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/随想/">
+                          <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                          随想
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    清单
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa fa-tags faa-shake" aria-hidden="true"></i>
+                    类别
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/PyQt/">
+                          <i class="fa " aria-hidden="true"></i>
+                          PyQt
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/python高级/">
+                          <i class="fa " aria-hidden="true"></i>
+                          Py高级
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/theme-sakura/">
+                          <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                          主题
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+        <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+  <div class="pattern-center-blank"></div>
+  
+    <div class="pattern-center single-center">
+      <!-- 有配图默认渲染第一张 -->
+      <div class="pattern-attachment-img lazyload" style="background-image: url(https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612154030.jpeg);" src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612154030.jpeg">
+      </div>
+      <header class="pattern-header single-header">
+        <h1 class="entry-title">
+        攻防世界web</h1>
+        <p class="entry-census">
+          <span>
+            <a href="/">
+              <img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190609173515.jpg">
+            </a>
+          </span>
+          <span>
+            <a href="/">Kid</a>
+          </span>
+          <span class="bull">
+          ·</span>
+          2019-5-23<span class="bull">
+          ·</span>
+        <span id="busuanzi_value_page_pv"></span>次阅读</p>
+      </header>
+    </div>
+  
+  <div id="content" class="site-content"> <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="攻防世界web"><a href="#攻防世界web" class="headerlink" title="攻防世界web"></a>攻防世界web</h1><p><br></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>准备ctf比赛，这里把攻防世界分值低于5分的基本刷了一遍（分值再高刷不动了…）</p>
+<p><br></p>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><ol>
+<li><p>view_source<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612151444.JPG" alt="1"><br>没难度知识禁用了右键点击，ctrl+u查看源码拿到flag</p>
+</li>
+<li><p>get_post<br>这题没什么好说的，按着提示来就能拿flag<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612151507.JPG" alt="2"><br>但我发现下面的hackbar不能用后用burp来进行post传参不返回flag…迷了我很久…<br>结果我下了左边那个hackbar后重来一遍，结果就返回flag了，很迷，我burp肯定没用错啊…</p>
+</li>
+<li><p>robots<br>这道题也没什么好说的啊，考一个robots协议的理解（<del>就是在玩爬虫时我们从来没有理会的一个协议…</del>），这里查看robots协议，看到flag的php访问拿到flag<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612151539.JPG" alt="3"></p>
+</li>
+<li><p>backup<br>这道题还是有点意思，考查一个备份文件，因为前面刚看了源码泄露方面的东西，结果这里一来就直接想到了vim的文件备份结果试~，没有…这时候一看人家也没提示说vim，正常的备份一般是加，.bak（比较常见的方法，当然手动备份也可以自己来取名，但程序员我感觉还是会偏向于统一）然后访问就可以下载到备份文件，查看文件拿到flag<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612151621.JPG" alt="4"><br>参考：<a href="https://www.4hou.com/technology/1958.html" target="_blank" rel="noopener">备份文件：被低估的Web威胁</a></p>
+</li>
+<li><p>cookie<br>这道题也没什么说的，访问网页检查元素查看cookie，看到cookie.php，然后直接访问<br>看到提示说查看response，响应头就藏着flag<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612151645.JPG" alt="5"></p>
+</li>
+<li><p>disabled button<br>这道题也没什么意思，有个按钮，查看源码可以发现是个input输入框，那直接post发送数据过去就得到flag了<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612151711.JPG" alt="6"></p>
+</li>
+<li><p>simple js<br>从题目就可以看出是一道javascript题<br>访问页面，查看源码，可以看到js代码<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612151736.JPG" alt="7"><br>分析得到下面的16进制的字符就是flag内容…（js确实有待学习加强，这里看了好久…）</p>
+</li>
+<li><p>xff referer<br>这道题也是比较初级的<br>我是用两个插件解决的<br>第一个它要求ip是123.123.123.123，我用的是X-Forwarded-For Header,<br>第二个要求是来自 <a href="http://www.google.com" target="_blank" rel="noopener">www.google.com</a> 这个用hackbar添加的Referer<br>当然直接抓包添加<br>X-Forwarded-For: 123.123.123.123<br>Referer: <a href="http://www.google.com" target="_blank" rel="noopener">www.google.com</a><br>这两个参数也行<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612151812.JPG" alt="8"></p>
+</li>
+<li><p>weak auth<br>这道题是个弱密码题，随便尝试登录，会告诉你用admin来登录<br>然后查看源码会提示你需要一个字典，这就很容易想到暴力破解了吧<br>这里用burp来尝试暴力破解<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612151836.JPG" alt="9"><br>可以看到密码是123456的时候返回长度与别的都不一样，尝试用admin，123456来登录，登录成功获得flag</p>
+</li>
+<li><p>webshell<br>这道题考查菜刀的使用，用过的话就没什么难度<br>题目描述中提示了一句话木马是index.php，访问网页看到一句话是\&lt;?php @eval($_POST[‘shell’]);?&gt;  ，得到’密码‘是shell，菜刀连接，文件管理就可以看到flag了<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152117.JPG" alt="10"></p>
+</li>
+<li><p>command execution<br>刷过dvwa应该都知道这个漏洞，这也和dvwa的low级别没什么差别<br>这里先127.0.0.1 &amp; find / -name “flag.*” 来查找flag文件的位置（找不到的话可以试下找flag文件）<br>然后看下图可以发现找到了<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152031.JPG" alt="11"><br>然后cat 文件得到flag</p>
+</li>
+<li><p>simple php<br>代码审计，这个代码还是比较简单易懂的<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152138.JPG" alt="12"><br>这里看代码就能明白，这里考的是php的\=\=和===<br>eg : $a = ‘123’; $b = 123;  $a === $b为假;$a == $b为真；</p>
+</li>
+<li><p>ics-06<br>这道题拿到的时候也没有什么好的思路，主页面点击没什么反应，查看代码后发现点击报表中心会跳转到index.php。跳转后可以看到Get传了一个id值，我这里以为是sql注入，结果没注出来。后面发现，这里是要暴力破解，id等于2333的时候出结果2333<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152224.JPG" alt="13"></p>
+</li>
+<li><p>Training-Get_Resourced<br>这道题直接在描述里提示了看注释就是看页面源码，进入页面也有一行比较淡的字提示看源码，打开源码就能直接得到flag，没什么意思…<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152249.JPG" alt="14"></p>
+</li>
+<li><p>Training-WWW-Robots<br>还是考查robots协议啊，访问robots.txt那里不让访问就去访问那里，就得到flag<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152311.JPG" alt="15"></p>
+</li>
+<li><p>NaNNaNNaNNaN-Batman<br>这道题对我还是挺难的，因为不怎么会（不会）js…<br>题目是给了个附件，以为是代码审计，也确实是代码审计，不过里面是乱码，但不全是乱码，能看出\<script>，\<eval>这些标签，很显然是个html文件，大概也能看出，前面是个函数，然后eval去执行，这里是把eval改为alert弹出非乱码形式的源码<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152335.JPG" alt="16"><br>分析其实可以直接运行里面的代码拿到flag，而不用去构造前面的匹配<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152345.JPG" alt="17"><br>然后可以看到直接出flag了</p>
+</li>
+<li><p>NewsCenter<br>这道题进去的时候也是比较懵，但看了下源码也就search那里可以操作，这种搜索框很容易想到sql注入，输入1查询正常，输入1’查询崩溃。OK存在注入，然后按照注入步骤来，整体很简单，dvwa low级别的难度吧手工很好注出来，sqlmap也能很好注出来<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152405.JPG" alt="18"></p>
+</li>
+<li><p>lottery<br>这道题有点难了…(菜鸡的无助)<br>这道题很显然是让我们去输入7个数字然后与答案匹配获得金币，然后购买flag<br>抓包，发现cookie有提示说看cookie.php，但并不能访问<br>然后我想能不能改个PHPSESSID来改换账户购买，但md5试了下破解不了，而且我们也不知道有别的账号<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152431.JPG" alt="19"><br>陷入僵局…<br>然后我看了下别人的提示说看下robots.txt<br>OK看到里面的提示就很熟悉了，最近刚好看了源码泄露的一些资料，还正好想试下GitHack这个工具…<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152457.JPG" alt="20"><br>使用githack工具<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152512.JPG" alt="21"><br>我们成功下回了源码，通过burp前面的代理我们可以看历史，发现我们buy的时候会访问api.php<br>这时候就是代码审计了<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152528.JPG" alt="22"><br>可以看到buy的代码片段，这里又考查的是==这个知识点<br>抓包可以看到是惊悚格式数据，然后$number也没有检查数据类型<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152545.JPG" alt="23"><br>OK，像上面那样改包就能成功赢的金币，然后就能购买flag了</p>
+</li>
+<li><p>upload<br>这道题我也很无语，很简单的文件上传漏洞用burp抓包或者禁js都能上传成功，上传的phpinfo也能访问成功，但我一句话就是连不上…我看别人的博客都是一句话能连上，很无语，最后上传了一个大马直接访问猜拿到flag…现在还是没懂为什么一句话没连上…<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152604.JPG" alt="24"></p>
+</li>
+<li><p>mfw<br>这道题还是挺绕的<br>首先是查看源码，看到注释里面有?page=flag<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152624.JPG" alt="25"><br>结果并没有返回<br>然后再翻看网页，看到提示说他用到了git想到源码泄露，githack用起来<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152643.JPG" alt="26"><br>很开心看到下载到了flag.php，结果打开是空的，真的只是模板<br>里面有用的就是index.php了，这时候就变成代码审计了<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152703.JPG" alt="27"><br>这里有个assert函数，这个一句话中也有用这个函数的  </p>
+<blockquote>
+<p>如果 assertion 是字符串，它将会被 assert() 当做 PHP 代码来执行。跟eval()类似, 不过eval($assertion)只是执行符合php编码规范的$code_str。</p>
+</blockquote>
+<p>所以我们要利用这一点来执行我们的命令<br>这里我感觉和注入是差不多的，因为没有过滤，所以我们可以注入些我们想要执行的东西<br>assert(“strpos(‘$file’, ‘..’) === false”) or die(“Detected hacking attempt!”);<br>有两句assert，我们拿上一句来进行注入，首先我们随便构造一个文件名来闭合strpos，x’)，然后<br>我们有or来拼接我们要执行的语句，因为前面随便构造的文件所以会为false，我们后面的命会执行，or system(“cat templates/flag.php “); //并注释掉后面的<br>page=x’) or system(“cat templates/flag.php”);//<br>这里自己php水平太菜所以看得别然人的，我总感觉上面assert没有闭合呢…但问题是上面的语句能正常运行，我想的反而不太对…php不愧是世界上最好的语言好难懂<br>assert(“strpos(‘$filex’) or system(“cat templates/flag.php”);//  怎么看都不像闭合了呢<br>然后查看源码就能看到flag了<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152813.JPG" alt="28"><br>这题考查的就相对绕了一些不像前面的题只考一个知识点那样了。</p>
+</li>
+<li><p>FlatScience<br>这个有点难了对于我这样的菜鸡来说<br>首先登陆网站后发现有很多pdf就没什么收获了<br>这时候查看robots.txt（主要看有没有提示什么后台登陆吧，现实中在robots里添加后台登陆也是比较常见的）或者用网站路径扫描器来扫描也是没问题的<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152843.JPG" alt="29"><br>这时候登login.php可以看到是个登陆界面，admin.php也是一个登陆界面<br>看源码可以看到login.php中有提示<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152904.JPG" alt="30"><br>按照提示我们加?debug去访问，然后发现有源码，进入代码审计<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152918.JPG" alt="31"><br>可以看到有数据库查询语句，很明显存在注入（因为没有过滤），但这里的难点在于用的是sqlite这个数据库，虽说sql注入原理都一样，但实现细节还是不一样的…<br>注入手法一样，先order by看字段数，这里注释符号用 –<br>3的时候报错所以有两个字段<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152940.JPG" alt="32"><br>源码分析可以看到setcookie，这还是一个比较简单的sql注入，有返回值<br>usr=’ union select name,sql from sqlite_master–<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612152954.JPG" alt="33"><br>可以看到有user表，我们关心的name,password和hint（因为代码审计可以看到密码存储sha1的方式，所以肯定还需要提示来破解）<br>‘ union select group_concat(name),group_concat(name) from Users –<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612153016.JPG" alt="34"><br>‘ union select group_concat(password),group_concat(password) from Users –<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612153035.JPG" alt="35"><br>‘ union select group_concat(hint),group_concat(hint) from Users –<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612153048.JPG" alt="36"><br>这里我是看到最后的hansi用户它的提示是password is password然后尝试登陆，不行登不上…<br>其次有用的提示就是admin了，他最喜欢的paper中最喜欢的词…这个就很像啊，因为前面给了那么多的pdf…<br>我看了下后面的思路，主要是先爬取下来所有的pdf，写py脚本将pdf转为文本文件（主要用到pdfminer模块），然后再每篇文章一个词一个词的提取出来进行sha1计算（按照代码中的加盐），和我们sql注入出来的sha值比较一样的就停止得到密码<br>然后再admin.php界面登录得到flag<br>这里贴一下别人的py代码吧</p>
+<p><code>`</code>python<br>from cStringIO import StringIO<br>from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter<br>from pdfminer.converter import TextConverter<br>from pdfminer.layout import LAParams<br>from pdfminer.pdfpage import PDFPage<br>import sys<br>import string<br>import os<br>import hashlib</p>
+<p>def get_pdf():</p>
+<pre><code>return [i for i in os.listdir(&quot;./&quot;) if i.endswith(&quot;pdf&quot;)]
+</code></pre></li>
+</ol>
+<pre><code>def convert_pdf_2_text(path):
+    rsrcmgr = PDFResourceManager()
+    retstr = StringIO()
+    device = TextConverter(rsrcmgr, retstr, codec=&#39;utf-8&#39;, laparams=LAParams())
+    interpreter = PDFPageInterpreter(rsrcmgr, device)
+    with open(path, &#39;rb&#39;) as fp:
+        for page in PDFPage.get_pages(fp, set()):
+            interpreter.process_page(page)
+        text = retstr.getvalue()
+    device.close()
+    retstr.close()
+    return text
+
+
+def find_password():
+    pdf_path = get_pdf()
+    for i in pdf_path:
+        print &quot;Searching word in &quot; + i
+        pdf_text = convert_pdf_2_text(i).split(&quot; &quot;)
+        for word in pdf_text:
+            sha1_password = hashlib.sha1(word+&quot;Salz!&quot;).hexdigest()
+            if sha1_password == &#39;3fab54a50e770d830c0416df817567662a9dc85c&#39;:
+                print &quot;Find the password :&quot; + word
+                exit()
+
+if __name__ == &quot;__main__&quot;:
+    find_password()
+```
+</code></pre><ol start="22">
+<li><p>upload<br>使用了我所知的一切方法进行上传，burp，文件截断…但完全不行，后台对文件进行校验，也没文件包含漏洞，卡主，毫无头绪…<br>后面看writeup说这是一道注入题…<br>这是一道insert注入题，insert注入听过，但没练习过…但原理我觉得就是插入数据的时候有些值插入成database()这种，后面显示的时候就会显示出数据库名。这里我们上传文件后会显示下图的信息<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612153122.JPG" alt="37"><br>后面会重定向到初始页面显示上传过的文件名<br>这里有了查询操作所以存在了二次注入的可能<br>这里的注入也特别麻烦，有很多过滤规则…</p>
+<p>参考<br><a href="https://blog.csdn.net/niexinming/article/details/49888893?utm_source=blogxgwz0">2015年rctf web150 (Update set 二次注入)</a><br><a href="https://www.jianshu.com/p/94686045cf50">RCTF2015+XCTF复现之一次上传的图片的文件名造成注入</a><br>但注入出来的结果我提交为什么不对了…(好吧不要按它说的格式来，直接交才正确…)</p>
+</li>
+<li><p>php2<br>页面就没什么信息，先查看robots.txt没有，再查看常用的几个界面，admin.php,login.php,index.php都没有…<br>路径扫描吧，扫出来会发现有index.phps（我是没扫出来，看了别人的字典添加后扫出来…）<br>访问，可以看到有部分代码片段，查看源码，能看到详细代码，变为代码审计<br><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612153207.JPG" alt="38"><br>这里就是要我们构造一个合适的id就能得到flag，可以看到需要的id进行urldecode后要等于admin，这就是二次编码，因为服务器接受到数据后会进行一次url解码，然后代码又解一次<br>二次编码，可以自行百度下，我看别人都是用御剑来做的，这里admin比较短查表也方便吧</p>
+</li>
+</ol>
+</script></p></li></ol>
+        </div>
+        <!-- .entry-content -->
+        <div class="single-reward">
+          <div class="reward-open">赏<div class="reward-main">
+              <ul class="reward-row">
+                <li class="alipay-code"><img src="/images/donate/AliPayQR.JPG"></li>
+                <li class="wechat-code"><img src="/images/donate/WeChanQR.JPG"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc-container" style="height: 1053px;">
+      <div class="toc" style="background: none;"></div>
+      </div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2019/05/24/源码泄露/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612151030.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                源码泄露</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2019/05/18/超菜鸟级ctf5/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="/images/loader/orange.progress-bar-stripe-loader.svg" data-src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190612161031.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                超菜鸟级ctf5</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "gcPhnmdmVfJN1u698TMvCz8k-gzGzoHsz",
+        appKey: "PduygKswwo4t1G5Bip0IURqq",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <a href="/" class="profile gravatar"><img src="https://raw.githubusercontent.com/NKcell/BlogPic/master/20190609173515.jpg" itemprop="image" alt="Kid" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="/" itemprop="url" rel="author">Kid</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>路漫漫其修远兮，吾将上下而求索</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+<!-- 不蒜子 网页计数器 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Kid<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;"></p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+       
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine@1.3.4/dist/Valine.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "/video","name":"video1.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "/video","name":"video1.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class>
+  <div class="m-avatar">
+    <img src="/images/avatar.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">さくら荘そのKid</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/随想/">
+                  <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                  随想
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            清单
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa fa-tags faa-shake" aria-hidden="true"></i>
+            类别
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/PyQt/">
+                  <i class="fa " aria-hidden="true"></i>
+                  PyQt
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/python高级/">
+                  <i class="fa " aria-hidden="true"></i>
+                  Py高级
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+              <li>
+                <a href="/theme-sakura/">
+                  <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                  主题
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .lrc-show {
+    display: block !important;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<div class="aplayer" data-id="2711618562" data-server="netease" data-type="playlist" data-fixed="true" data-order="random">
+</div>
+<script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+</body>
+</html>
